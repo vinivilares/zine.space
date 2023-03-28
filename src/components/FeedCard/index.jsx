@@ -2,12 +2,12 @@ import Image from "next/image"
 
 import S from "./FeedCard.module.css"
 
-import CheckIcon from "../../../Icons/CheckIcon"
-import DislikeIcon from "../../../Icons/DislikeIcon"
-import EyeIcon from "../../../Icons/EyeIcon"
-import LikeIcon from "../../../Icons/LikeIcon"
-import StarIcon from "../../../Icons/StarIcon"
-import ThreeDotsIcon from "../../../Icons/ThreeDotsIcon"
+import CheckIcon from "../../../icons/CheckIcon"
+import DislikeIcon from "../../../icons/DislikeIcon"
+import EyeIcon from "../../../icons/EyeIcon"
+import LikeIcon from "../../../icons/LikeIcon"
+import StarIcon from "../../../icons/StarIcon"
+import ThreeDotsIcon from "../../../icons/ThreeDotsIcon"
 
 export function FeedCard() {
   return (

@@ -2,9 +2,9 @@ import Image from "next/image"
 
 import S from "./Navbar.module.css"
 
-import BellIcon from "../../../Icons/BellIcon"
-import HamburgerIcon from "../../../Icons/HamburgerIcon"
-import SearchIcon from "../../../Icons/SearchIcon"
+import BellIcon from "../../../icons/BellIcon"
+import HamburgerIcon from "../../../icons/HamburgerIcon"
+import SearchIcon from "../../../icons/SearchIcon"
 
 export function Navbar() {
   return (
