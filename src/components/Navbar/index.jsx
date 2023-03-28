@@ -9,7 +9,7 @@ import SearchIcon from "../../../icons/SearchIcon"
 export function Navbar() {
   return (
     <nav className={S.navbar}>
-      <Image alt="logo" src={"/logo.png"} width={"30"} height={"30"} />
+      <Image alt="Zine Logo" src={"/logo.png"} width={"30"} height={"30"} />
       <div className={S.container}>
         <label className={S.label}>
           <button className={S.buttonSearch}>
