@@ -1,8 +1,9 @@
-:root{
-  --background-color: #03191e;
-  --main-color: #c1cfda;
-  --alert-color: #941c2f;
+:root {
+  --background-color: #03191E;
+  --main-color:  #C1CFDA;
+  --alert-color: #941C2F;
 }
+
 * {
   box-sizing: border-box;
   padding: 0;
