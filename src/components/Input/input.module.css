@@ -1,0 +1,48 @@
+.container {
+  position: relative;
+}
+
+.label {
+  color: #c1cfda;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0;
+  pointer-events: none;
+  transition: 0.2s ease-in-out;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 2rem;
+  border: none;
+  border-bottom: 1px solid var(--main-color);
+  outline: transparent;
+  font-size: inherit;
+  background-color: transparent;
+}
+
+.input:focus,
+.input:valid {
+  border-bottom: 1px solid var(--main-color);
+}
+
+.input:focus ~ .label,
+.input:valid ~ .label {
+  transform: translateY(-1.5rem);
+  font-size: 0.8rem;
+}
+.input[type="date"] {
+  color: var(--main-color);
+  font-size: 1rem;
+}
+
+.input[type="date"]::before {
+  content: "Birthday: ";
+  color: var(--main-color);
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator {
+ 
+  background-image: url("/calendar_icon.png");
+}
