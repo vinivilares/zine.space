@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import S from "./FeedCard.module.css"
 
@@ -9,22 +10,24 @@ import LikeIcon from "../../../icons/LikeIcon"
 import StarIcon from "../../../icons/StarIcon"
 import ThreeDotsIcon from "../../../icons/ThreeDotsIcon"
 
-export function FeedCard() {
+export function FeedCard({ name, userImage, movie, review, poster }) {
   return (
     <div className={S.feedCard}>
       <div className={S.info}>
         <div className={S.leftInfo}>
           <Image
-            src={"/profilepic.jpg"}
+            src={userImage} // TODO - Alterar o link da imagem vir do banco de dados
             alt="Image de perfil"
             width={"50"}
             height={"50"}
           />
 
           <div>
-            <h3>Roberta</h3>
+            <Link href={`/${name}`}>
+              <h3>{name}</h3>
+            </Link>
             <div className={S.star}>
-              <p>Assistiu Akira</p>
+              <p>Assistiu - {movie}</p>
               <StarIcon />
               <StarIcon />
               <StarIcon />
@@ -36,16 +39,9 @@ export function FeedCard() {
       </div>
 
       <div className={S.reviewCard}>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          minus et ut minima mollitia iure dolore optio iusto reiciendis
-          suscipit voluptatibus repellat rem tempore harum, nam velit recusandae
-          sunt debitis.
-        </p>
+        <p>{review}</p>
         <Image
-          src={
-            "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_SX300.jpg"
-          }
+          src={poster} // TODO - Alterar o link da imagem para vir do banco de dados
           alt="Poster"
           width={100}
           height={148}
