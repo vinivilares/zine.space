@@ -4,7 +4,7 @@ import Input from "components/Input"
 
 import styles from "../styles/Auth.module.css"
 
-import EyeIcon from "../../icons/Eyelcon"
+import EyeIcon from "../../icons/EyeIcon"
 import EyelconClosed from "../../icons/EyelconClosed"
 
 export default function Login() {
