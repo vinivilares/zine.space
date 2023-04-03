@@ -2,9 +2,9 @@ import Image from "next/image"
 
 import { Navbar } from "components/Navbar"
 
-import styles from "styles/Assistidos.module.css"
+import styles from "styles/Recomendados.module.css"
 
-export default function Assistidos() {
+export default function Recomendados() {
   const posters = [
     {
       id: 1,
@@ -54,7 +54,7 @@ export default function Assistidos() {
           height="50"
           alt="Foto de perfil"
         />
-        <h3 className={styles.titulo}>Listas de assistidos por Roberta</h3>
+        <h3 className={styles.titulo}>Listas de recomendados por Roberta</h3>
       </div>
       <div className={styles.grid}>
         <div className={styles.posters}>
