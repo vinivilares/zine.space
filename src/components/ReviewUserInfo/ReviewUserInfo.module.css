@@ -1,0 +1,22 @@
+.info {
+  color: #c1cfda;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 1rem;
+}
+
+.leftInfo {
+  display: flex;
+  align-items: center;
+}
+
+.leftInfo img {
+  border-radius: 100%;
+  margin-right: 1rem;
+}
+
+.star {
+  display: flex;
+  align-items: center;
+}
