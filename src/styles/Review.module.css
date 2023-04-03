@@ -1,0 +1,23 @@
+.movieDetails {
+  display: flex;
+  gap: .5rem;
+}
+
+.reviewCard {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin: 1rem;
+  background-color: #c1cfda;
+  padding: 0.5rem;
+  border-radius: .5rem;
+}
+
+.reviewCard img {
+  border-radius: .5rem;
+}
+
+
+.review {
+  text-align: justify;
+}

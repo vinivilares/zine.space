@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import S from "./Navbar.module.css"
 
@@ -9,7 +10,9 @@ import SearchIcon from "../../../icons/SearchIcon"
 export function Navbar() {
   return (
     <nav className={S.navbar}>
-      <Image alt="Zine Logo" src={"/logo.png"} width={"30"} height={"30"} />
+      <Link href={"/feed"}>
+        <Image alt="Zine Logo" src={"/logo.png"} width={"30"} height={"30"} />
+      </Link>
       <div className={S.container}>
         <label className={S.label}>
           <button className={S.buttonSearch}>
