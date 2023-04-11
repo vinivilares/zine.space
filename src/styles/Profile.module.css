@@ -1,0 +1,93 @@
+.container {
+  width: 95%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--main-color);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userInfo img {
+  border-radius: 50%;
+}
+
+.userInfo > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.userInfo svg {
+  width: 24px;
+  fill: var(--main-color);
+}
+
+.socialMedia {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.follow-followers {
+  display: flex;
+  color: var(--main-color);
+  gap: 1rem;
+  place-content: center;
+}
+
+.button {
+  background-color: var(--main-color);
+  border: none;
+  outline: transparent;
+  padding-block: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.badges {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Refazer */
+.badges p {
+  /* background-color: var(--main-color);
+  color: black;
+  width: 1rem;
+  height: 1rem;
+  padding: 2rem;
+  display: grid;
+  place-content: center; */
+  text-align: center;
+}
+
+.carouselContainer {
+  text-align: center;
+}
+
+.carouselContainer h3 {
+  margin-block: .5rem;
+}
+
+
+.carousel {
+  display: grid;
+  gap: 0.75rem;
+  grid-auto-flow: column;
+  grid-auto-columns: min-content;
+
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.carousel img {
+  border-radius: 0.5rem;
+}
+
+
