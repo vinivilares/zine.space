@@ -7,6 +7,12 @@
   position: sticky;
 }
 
+.navbar button {
+  outline: transparent;
+  border: none;
+  background-color: transparent;
+}
+
 .navbar input {
   outline: transparent;
 }

@@ -20,6 +20,7 @@
   outline: transparent;
   font-size: inherit;
   background-color: transparent;
+  color: var(--main-color);
 }
 
 .input:focus,
