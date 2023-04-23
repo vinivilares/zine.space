@@ -34,22 +34,23 @@ export function Navbar() {
         <Link href={"/feed"}>
           <Image alt="Zine Logo" src={"/logo.png"} width={"30"} height={"30"} />
         </Link>
-        <div className={S.container}>
-          <label className={S.label}>
-            <button className={S.buttonSearch}>
-              <SearchIcon />
-            </button>
-          </label>
-          <input className={S.input} />
-        </div>
+
+        <input className={S.input} />
+
+        <button>
+          <SearchIcon />
+        </button>
+
         <button onClick={handleNotifications}>
           <BellIcon />
         </button>
+
         <button onClick={handleSideMenu} id="hamburgerIcon">
           {!seeSideMenu && <HamburgerIcon />}
           {seeSideMenu && <CloseIcon />}
         </button>
       </nav>
+
       {seeNotification && <NotificationScreen />}
     </>
   )

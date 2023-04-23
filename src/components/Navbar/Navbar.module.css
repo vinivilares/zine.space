@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: space-around;
   padding: 0.5rem;
-  /* background-color: red; */
   position: sticky;
 }
 
@@ -13,30 +12,8 @@
   background-color: transparent;
 }
 
-.navbar input {
-  outline: transparent;
-}
-
-.container {
-  position: relative;
-  width: 60%;
-}
-
-.label {
-  position: absolute;
-  bottom: 0;
-  right: 0.25rem;
-  /* pointer-events: none; */
-}
-
-.buttonSearch {
-  border: none;
-  background-color: transparent;
-  outline: transparent;
-}
-
 .input {
-  width: 100%;
+  /* width: 100%; */
   height: 2rem;
   border: none;
   outline: transparent;
