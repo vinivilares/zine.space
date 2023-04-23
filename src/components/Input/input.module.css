@@ -23,16 +23,12 @@
   color: var(--main-color);
 }
 
-.input:focus,
-.input:valid {
-  border-bottom: 1px solid var(--main-color);
-}
-
 .input:focus ~ .label,
 .input:valid ~ .label {
   transform: translateY(-1.5rem);
   font-size: 0.8rem;
 }
+
 .input[type="date"] {
   color: var(--main-color);
   font-size: 1rem;
