@@ -42,7 +42,7 @@ export default function Login() {
       {containerLogin && (
         <div className={styles.login}>
           <div>
-            <Input id={"email"} label={"Email"} type="email" />
+            <Input id={"email"} label={"Email"} type="text" />
             <div className={styles.inputPassword}>
               <Input
                 id={"password"}
@@ -94,7 +94,7 @@ export default function Login() {
 
           <Input id={"birthday"} type="date" />
 
-          <Input id={"email"} label={"Email"} type="email" />
+          <Input id={"email"} label={"Email"} type="text" />
 
           <div className={styles.inputPassword}>
             <Input
