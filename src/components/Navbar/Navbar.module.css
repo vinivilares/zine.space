@@ -4,6 +4,7 @@
   justify-content: space-around;
   padding: 0.5rem;
   position: sticky;
+  z-index: 1000;
 }
 
 .navbar button {
@@ -18,7 +19,7 @@
   border: none;
   outline: transparent;
   font-size: inherit;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   background-color: var(--main-color);
   padding-inline: 1rem;
 }
