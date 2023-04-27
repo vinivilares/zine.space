@@ -32,12 +32,7 @@ export function Navbar() {
 
       <nav className={S.navbar} id="navbar">
         <Link href={"/feed"}>
-          <Image
-            alt="Zine Logo"
-            src={"/profilepic.jpg"}
-            width={"30"}
-            height={"30"}
-          />
+          <Image alt="Zine Logo" src={"/logo.svg"} width={"30"} height={"30"} />
         </Link>
 
         <input className={S.input} />
