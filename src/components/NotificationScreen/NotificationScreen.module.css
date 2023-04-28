@@ -1,10 +1,10 @@
 .container {
-  position: absolute;
+  position: fixed;
   color: var(--main-color);
-  height: 100svh;
+  /* height: 100svh; */
   width: 100%;
   z-index: 1;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
 }
 
 .background {

@@ -44,7 +44,7 @@ export default function querVer() {
     }
   ]
   return (
-    <>
+    <div className={styles.container}>
       <Navbar />
       <div className={styles.topo}>
         <Image
@@ -69,6 +69,6 @@ export default function querVer() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }

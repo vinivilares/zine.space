@@ -1,3 +1,7 @@
+.container {
+  padding-top: 3rem;
+}
+
 .movieDetails {
   display: flex;
   gap: .5rem;

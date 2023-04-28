@@ -43,6 +43,114 @@ export default function NotificationScreen() {
             <p>7 horas atras</p>
           </div>
         </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
+        <div className={S.notification}>
+          <Image
+            src={"/profilepic.jpg"}
+            width={50}
+            height={50}
+            alt="Foto perfil"
+          />
+          <div>
+            <p>Roberta recomendou Akira</p>
+            <p>7 horas atras</p>
+          </div>
+        </div>
 
         <div className={S.clearNotifications}>
           <p>Limpar notificações</p>

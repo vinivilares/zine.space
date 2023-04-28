@@ -3,8 +3,12 @@
   align-items: center;
   justify-content: space-around;
   padding: 0.5rem;
-  position: sticky;
-  z-index: 1000;
+  position: fixed;
+  width: 100vw;
+  height: 3rem;
+  top: 0;
+  z-index: 9999;
+  background-color: var(--background-color);
 }
 
 .navbar button {

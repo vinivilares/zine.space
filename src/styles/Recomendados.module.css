@@ -1,27 +1,28 @@
+.container {
+  padding-top: 3rem;
+}
+
 .foto {
-    border-radius: 50%;
-  }
-  
-  .topo {
-    display: flex;
-    color: var(--main-color);
-    align-items: center;
-    gap: 0.50rem;
-    padding-block: 1.5rem;
-    justify-content: center;
-  }
-  
-  .grid{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-  
-  .posters {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap:0.75rem ;
-  
-  }
-  
-  
+  border-radius: 50%;
+}
+
+.topo {
+  display: flex;
+  color: var(--main-color);
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 1.5rem;
+  justify-content: center;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.posters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}

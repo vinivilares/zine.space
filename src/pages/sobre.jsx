@@ -6,7 +6,7 @@ import S from "styles/Sobre.module.css"
 
 export default function Sobre() {
   return (
-    <>
+    <div className={S.container}>
       <Navbar />
       <div className={S.sobre}>
         <p>Zine.Space - 2023</p>
@@ -20,6 +20,6 @@ export default function Sobre() {
           </Link>
         </p>
       </div>
-    </>
+    </div>
   )
 }

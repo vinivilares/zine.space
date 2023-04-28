@@ -5,6 +5,7 @@
     margin-inline: auto;
     color: var(--main-color);
     gap: 0.75rem;
+    padding-top: 3rem;
 }
 .movie{
     color: var(--main-color);

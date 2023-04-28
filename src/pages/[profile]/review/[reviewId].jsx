@@ -10,7 +10,7 @@ import S from "styles/Review.module.css"
 
 export default function Review() {
   return (
-    <>
+    <div className={S.container}>
       <Navbar />
 
       <ReviewUserInfo
@@ -45,6 +45,6 @@ export default function Review() {
       </div>
 
       <ReviewOptions />
-    </>
+    </div>
   )
 }
