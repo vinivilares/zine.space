@@ -5,7 +5,6 @@
   flex-direction: column;
   gap: 1rem;
   color: var(--main-color);
-  padding-top: 3rem;
 }
 
 .userInfo {

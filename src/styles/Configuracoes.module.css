@@ -3,7 +3,6 @@
     color: var(--main-color);
     display: grid;
     gap: 2rem;
-    padding-top: 3rem;
 }
 
 .image{
