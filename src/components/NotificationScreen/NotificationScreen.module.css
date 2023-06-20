@@ -1,10 +1,27 @@
 .container {
-  position: absolute;
-  background-color: var(--background-color);
   color: var(--main-color);
-  /* height: 100svh; */
+  width: 100%;
+  z-index: 100;
+  background-color: var(--background-color);
+  padding-top: 2rem;
+  position: fixed;
+  height: 100%;
+}
+
+.title{
+  position: fixed;
+  padding-top: 3rem;
+  top: 0;
+  background-color: var(--background-color);
   width: 100%;
   padding-inline: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.notificationList {
+  padding-inline: 1rem;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .notification {
@@ -23,6 +40,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding-block: 1rem;
 }
 
 .clearNotifications p:nth-child(2) {

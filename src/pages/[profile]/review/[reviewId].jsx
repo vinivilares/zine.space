@@ -10,7 +10,7 @@ import S from "styles/Review.module.css"
 
 export default function Review() {
   return (
-    <>
+    <div className={S.container}>
       <Navbar />
       <div className={S.container}>
         <div className={S.topo}>
@@ -57,6 +57,7 @@ export default function Review() {
             ad ipsam.
           </p>
         </div>
+
 
         <ReviewOptions />
       </div>

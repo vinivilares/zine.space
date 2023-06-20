@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="500.00006"
+   height="500.00006"
+   viewBox="0 0 132.29169 132.29169"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="logo.svg"
+   inkscape:export-xdpi="95.310471"
+   inkscape:export-ydpi="95.310471"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,1.7523767e-5)">
+    <rect
+       style="fill:#000000;fill-opacity:0;stroke:#c2d0db;stroke-width:1.49915;stroke-dasharray:none;stroke-opacity:1"
+       id="rect111"
+       width="130.79253"
+       height="130.79253"
+       x="0.74957502"
+       y="-131.54208"
+       transform="scale(1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0;stroke:#c2d0db;stroke-width:1.32292;stroke-dasharray:none;stroke-opacity:1"
+       x="63.339031"
+       y="67.327919"
+       id="text3551"><tspan
+         sodipodi:role="line"
+         id="tspan3549"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;stroke-width:1.32292"
+         x="63.339031"
+         y="67.327919">abc</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:70.5556px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c2d0db;fill-opacity:1;stroke:#000000;stroke-width:1.32292;stroke-dasharray:none;stroke-opacity:0"
+       x="34.313255"
+       y="103.76614"
+       id="text4137"><tspan
+         sodipodi:role="line"
+         id="tspan4135"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:105.833px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c2d0db;fill-opacity:1;stroke:#000000;stroke-width:1.32292;stroke-opacity:0"
+         x="34.313255"
+         y="103.76614">Z</tspan></text>
+  </g>
+</svg>

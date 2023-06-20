@@ -31,7 +31,7 @@ export default function Feed() {
   // ]
 
   return (
-    <>
+    <div className={S.container}>
       <Navbar />
       {/* {reviews.map((review) => (
         <>
@@ -73,6 +73,6 @@ export default function Feed() {
       </div>
 
       <ReviewOptions />
-    </>
+    </div>
   )
 }

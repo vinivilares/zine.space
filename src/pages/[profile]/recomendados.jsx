@@ -44,7 +44,7 @@ export default function Recomendados() {
     }
   ]
   return (
-    <>
+    <div className={styles.container}>
       <Navbar />
       <div className={styles.topo}>
         <Image
@@ -69,6 +69,6 @@ export default function Recomendados() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
