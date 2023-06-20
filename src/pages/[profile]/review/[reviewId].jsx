@@ -12,39 +12,54 @@ export default function Review() {
   return (
     <>
       <Navbar />
-
-      <ReviewUserInfo
-        userName={"Roberta"}
-        userImage={"/profilepic.jpg"}
-        movie={"Akira"}
-      />
-
-      <div className={S.reviewCard}>
-        <div className={S.movieDetails}>
-          <Image
-            src="https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_SX300.jpg"
-            // TODO - Alterar o link da imagem para vir do banco de dados
-            alt="Poster"
-            width={100}
-            height={148}
+      <div className={S.container}>
+        <div className={S.topo}>
+          <ReviewUserInfo
+            userName={"Roberta"}
+            userImage={"/profilepic.jpg"}
+            movie={"Akira"}
           />
-          <div>
-            <h3>Akira</h3>
-            <p>1988 - R</p>
-            <p>Animation, Action, Drama</p>
-          </div>
         </div>
-        <p className={S.review}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aperiam
-          pariatur omnis dolorem, nam commodi explicabo officiis, rerum ut
-          labore alias officia voluptatum hic! Id cumque fugiat rerum ad ipsam.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aperiam
-          pariatur omnis dolorem, nam commodi explicabo officiis, rerum ut
-          labore alias officia voluptatum hic! Id cumque fugiat rerum ad ipsam.
-        </p>
-      </div>
+        <div className={S.review}>
+          <div className={S.movie}>
+            <Image
+              src="https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_SX300.jpg"
+              // TODO - Alterar o link da imagem para vir do banco de dados
+              alt="Poster"
+              width={100}
+              height={148}
+            />
+            <div>
+              <h3>Akira</h3>
+              <p>1988 - R</p>
+              <p>Animation, Action, Drama</p>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aperiam
+            pariatur omnis dolorem, nam commodi explicabo officiis, rerum ut
+            labore alias officia voluptatum hic! Id cumque fugiat rerum ad
+            ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. In
+            aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
+            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
+            ad ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            In aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
+            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
+            ad ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            In aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
+            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
+            ad ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            In aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
+            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
+            ad ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            In aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
+            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
+            ad ipsam.
+          </p>
+        </div>
 
-      <ReviewOptions />
+        <ReviewOptions />
+      </div>
     </>
   )
 }
