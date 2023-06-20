@@ -1,27 +1,28 @@
-.container {
-  padding-top: 3rem;
-}
-
-.movieDetails {
-  display: flex;
-  gap: .5rem;
-}
-
-.reviewCard {
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  margin: 1rem;
-  background-color: #c1cfda;
-  padding: 0.5rem;
-  border-radius: .5rem;
-}
-
-.reviewCard img {
-  border-radius: .5rem;
-}
-
-
 .review {
+  background-color: #c1cfda;
+  border-radius: 0.5rem;
+  margin-inline: 0.5rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+
+}
+
+.review p {
   text-align: justify;
+}
+
+.movie {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.movie img {
+  border-radius: 0.5rem;
+}
+
+@media (min-width: 1025px) {
+.container {
+  max-width: 1025px;
+  margin: auto;
+}
 }
