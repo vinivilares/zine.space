@@ -35,3 +35,15 @@
 .button{
     display: flex;
 }
+
+
+@media (min-width: 1025px) {
+    .container {
+      max-width: 1025px; 
+      margin: auto;
+    }
+
+   .container button{
+    width: 20%;
+   }
+    }
