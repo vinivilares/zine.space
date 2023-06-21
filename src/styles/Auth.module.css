@@ -12,6 +12,14 @@
   color: var(--main-color);
 }
 
+.info {
+  color: var(--main-color);
+}
+
+.info p {
+  display: none;
+}
+
 .inputPassword {
   display: flex;
   justify-content: space-between;
@@ -78,4 +86,21 @@
 .span {
   color: var(--alert-color);
   cursor: pointer;
+}
+
+@media (min-width: 1025px) {
+  .container {
+    flex-direction: row;
+    max-width: 1025px;
+    gap: 6rem;
+  }
+
+  .info {
+    color: var(--main-color);
+    width: 50%;
+  }
+
+  .info p {
+    display: block;
+  }
 }

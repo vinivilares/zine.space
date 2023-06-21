@@ -38,7 +38,16 @@ export default function Login() {
   }
   return (
     <div className={styles.container}>
-      <h1>Zine</h1>
+      <div className={styles.info}>
+        <h1>Zine</h1>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque
+          tempora odio corporis ratione mollitia repellat voluptate culpa vel
+          unde qui, incidunt reprehenderit nulla assumenda enim, excepturi
+          temporibus, dolor ut deleniti!
+        </p>
+      </div>
+
       {containerLogin && (
         <div className={styles.login}>
           <div>
