@@ -90,4 +90,25 @@
   border-radius: 0.5rem;
 }
 
+@media (min-width: 1025px) {
+  .container{
+    max-width: 1025px;
+    margin: auto;
+  }
+
+  .button{
+    width: 7rem;
+  }
+
+  .profile{
+    margin-top: 2rem;
+  }
+
+  .carousel{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
 

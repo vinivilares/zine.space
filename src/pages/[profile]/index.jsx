@@ -67,8 +67,12 @@ export default function Profile() {
             alt="Profile Picture"
           />
 
-          <div>
+          <div className={S.profile}>
             <h3>Roberta</h3>
+            <div className={S["follow-followers"]}>
+              <p>10.2k Seguindo</p>
+              <p>1m Seguidores</p>
+            </div>
             <div className={S.socialMedia}>
               <TwitterIcon />
               <p>@roro</p>
@@ -77,12 +81,18 @@ export default function Profile() {
               <InstagramIcon />
               <p>@roro</p>
             </div>
-          </div>
-        </div>
+            {!follow && (
+              <button className={S.button} onClick={() => setFollow(!follow)}>
+                Seguir
+              </button>
+            )}
 
-        <div className={S["follow-followers"]}>
-          <p>10.2k Seguindo</p>
-          <p>1m Seguidores</p>
+            {follow && (
+              <button className={S.button} onClick={() => setFollow(!follow)}>
+                Seguindo
+              </button>
+            )}
+          </div>
         </div>
 
         <div>
@@ -94,18 +104,6 @@ export default function Profile() {
             rerum optio harum ad odio?
           </p>
         </div>
-
-        {!follow && (
-          <button className={S.button} onClick={() => setFollow(!follow)}>
-            Seguir
-          </button>
-        )}
-
-        {follow && (
-          <button className={S.button} onClick={() => setFollow(!follow)}>
-            Seguindo
-          </button>
-        )}
 
         <div className={S.badges}>
           <div>
