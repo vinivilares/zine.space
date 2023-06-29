@@ -6,20 +6,22 @@ import S from "styles/Sobre.module.css"
 
 export default function Sobre() {
   return (
-    <div className={S.container}>
+    <>
       <Navbar />
-      <div className={S.sobre}>
-        <p>Zine.Space - 2023</p>
-        <p>
-          <Link target={"_blank"} href={"https://github.com/ewerson2/"}>
-            Ewerson
-          </Link>{" "}
-          &{" "}
-          <Link target={"_blank"} href={"https://github.com/vinivilares/"}>
-            Marcus
-          </Link>
-        </p>
+      <div className={S.container}>
+        <div className={S.sobre}>
+          <p>Zine.Space - 2023</p>
+          <p>
+            <Link target={"_blank"} href={"https://github.com/ewerson2/"}>
+              Ewerson
+            </Link>{" "}
+            &{" "}
+            <Link target={"_blank"} href={"https://github.com/vinivilares/"}>
+              Marcus
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

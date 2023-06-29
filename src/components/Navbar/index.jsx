@@ -28,7 +28,7 @@ export function Navbar() {
 
   return (
     <>
-      {seeSideMenu && <SideMenu />}
+      {/* {seeSideMenu && <SideMenu />}
 
       <nav className={S.navbar} id="navbar">
         <Link href={"/feed"}>
@@ -37,9 +37,7 @@ export function Navbar() {
 
         <input className={S.input} />
 
-        <button>
-          <SearchIcon />
-        </button>
+       
 
         <button onClick={handleNotifications}>
           <BellIcon />
@@ -51,7 +49,33 @@ export function Navbar() {
         </button>
       </nav>
 
-      {seeNotification && <NotificationScreen />}
+      {seeNotification && <NotificationScreen />} */}
+
+      <nav className={S.navbar}>
+        <Link href={"/feed"}>
+          <h2>Zine</h2>
+        </Link>
+
+        <div className={S.input}>
+          <input />
+          <button>
+            <SearchIcon />
+          </button>
+        </div>
+
+        <ul className={S.navigation}>
+          <li>
+            <button>
+              <BellIcon />
+            </button>
+
+            <button onClick={handleSideMenu} id="hamburgerIcon">
+              {!seeSideMenu && <HamburgerIcon />}
+              {seeSideMenu && <CloseIcon />}
+            </button>
+          </li>
+        </ul>
+      </nav>
     </>
   )
 }
