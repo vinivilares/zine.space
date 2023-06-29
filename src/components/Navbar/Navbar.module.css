@@ -1,24 +1,36 @@
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 0.5rem;
-  /* position: fixed; */
-  width: 100vw;
-  height: 3rem;
-  top: 0;
-  z-index: 9999;
-  background-color: var(--background-color);
+  justify-content: space-between;
+  padding: 1rem;
+  color: var(--main-color);
 }
 
 .navbar button {
   outline: transparent;
   border: none;
   background-color: transparent;
+  cursor: pointer;
+}
+
+.navigation {
+  list-style-type: none;
+}
+
+.navigation li {
+  display: flex;
+  gap: 1rem;
 }
 
 .input {
-  /* width: 100%; */
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 70%;
+}
+
+.input > input {
+  width: 100%;
   height: 2rem;
   border: none;
   outline: transparent;
@@ -30,20 +42,6 @@
 
 @media (min-width: 1025px) {
   .navbar {
-    background-color: var(--main-color);
-    color: black;
-  }
-
-  .navbar svg {
-    fill: black;
-  }
-
-
-  .input {
-    /* width: 100%; */
-    height: 2rem;
-    border: 1px solid black;
-   
+    padding-inline: 10rem;
   }
 }
-
