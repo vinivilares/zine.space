@@ -54,7 +54,7 @@ export default function Recomendados() {
           height="50"
           alt="Foto de perfil"
         />
-        <h3 className={styles.titulo}>Listas de recomendados por Roberta</h3>
+        <h2 className={styles.titulo}>Listas de recomendados por Roberta</h2>
       </div>
       <div className={styles.grid}>
         <div className={styles.posters}>
