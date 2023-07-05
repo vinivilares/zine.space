@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
-import Image from "next/image"
+// import Image from "next/image"
 import Link from "next/link"
 
 import { useState } from "react"
 
-import NotificationScreen from "components/NotificationScreen"
-import SideMenu from "components/SideMenu"
+// import NotificationScreen from "components/NotificationScreen"
+import SettingsMenu from "components/SettingsMenu"
 
 import S from "./Navbar.module.css"
 
@@ -15,15 +15,15 @@ import HamburgerIcon from "../../../icons/HamburgerIcon"
 import SearchIcon from "../../../icons/SearchIcon"
 
 export function Navbar() {
-  const [seeNotification, setSeeNotification] = useState(false)
-  const [seeSideMenu, setSeeSideMenu] = useState(false)
+  // const [seeNotification, setSeeNotification] = useState(false)
+  const [seeSettingsMenu, setSeeSettingsMenu] = useState(false)
 
-  function handleNotifications() {
-    setSeeNotification((current) => !current)
-  }
+  // function handleNotifications() {
+  //   setSeeNotification((current) => !current)
+  // }
 
-  function handleSideMenu() {
-    setSeeSideMenu((current) => !current)
+  function handleSettingsMenu() {
+    setSeeSettingsMenu((current) => !current)
   }
 
   return (
@@ -69,13 +69,13 @@ export function Navbar() {
               <BellIcon />
             </button>
 
-            <button onClick={handleSideMenu} id="hamburgerIcon">
-              {!seeSideMenu && <HamburgerIcon />}
-              {seeSideMenu && <CloseIcon />}
+            <button onClick={handleSettingsMenu} id="hamburgerIcon">
+              {!seeSettingsMenu ? <HamburgerIcon /> : <CloseIcon />}
             </button>
           </li>
         </ul>
       </nav>
+      {seeSettingsMenu && <SettingsMenu />}
     </>
   )
 }
