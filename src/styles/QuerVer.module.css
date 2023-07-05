@@ -1,7 +1,3 @@
-.container {
-  padding-top: 3rem;
-}
-
 .foto {
   border-radius: 50%;
 }
@@ -42,4 +38,4 @@
     grid-template-columns: repeat(6, 1fr);
   }
   }
-  
+
