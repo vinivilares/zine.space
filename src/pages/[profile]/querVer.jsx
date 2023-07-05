@@ -54,7 +54,7 @@ export default function querVer() {
           height="50"
           alt="Foto de perfil"
         />
-        <h3 className={styles.titulo}>Listas de quer ver de Roberta</h3>
+        <h2 className={styles.titulo}>Listas de quer ver de Roberta</h2>
       </div>
       <div className={styles.grid}>
         <div className={styles.posters}>
