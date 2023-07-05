@@ -44,31 +44,33 @@ export default function Recomendados() {
     }
   ]
   return (
-    <div className={styles.container}>
+    <>
       <Navbar />
-      <div className={styles.topo}>
-        <Image
-          className={styles.foto}
-          src="/profilepic.jpg"
-          width={50}
-          height="50"
-          alt="Foto de perfil"
-        />
-        <h2 className={styles.titulo}>Listas de recomendados por Roberta</h2>
-      </div>
-      <div className={styles.grid}>
-        <div className={styles.posters}>
-          {posters.map((poster) => (
-            <Image
-              src={poster.link}
-              width={120}
-              height={168}
-              alt="Poster do filme"
-              key={poster.id}
-            />
-          ))}
+      <div className={styles.container}>
+        <div className={styles.topo}>
+          <Image
+            className={styles.foto}
+            src="/profilepic.jpg"
+            width={50}
+            height="50"
+            alt="Foto de perfil"
+          />
+          <h2 className={styles.titulo}>Listas de recomendados por Roberta</h2>
+        </div>
+        <div className={styles.grid}>
+          <div className={styles.posters}>
+            {posters.map((poster) => (
+              <Image
+                src={poster.link}
+                width={120}
+                height={168}
+                alt="Poster do filme"
+                key={poster.id}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
