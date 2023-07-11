@@ -1,28 +1,38 @@
 import Link from "next/link"
 
-import S from "./SideMenu.module.css"
+import S from "./settingsMenu.module.css"
 
-export default function SettingsMenu() {
+import ArrowBack from "../../../icons/ArrowBack"
+
+export default function SettingsMenu({ id, onClick }) {
   return (
-    <div className={S.settingsMenu}>
-      <nav>
-        <ul className={S.navigation}>
-          <li>
-            <Link href={"/perfil/configuracoes"}>
-              <h2>Configurações</h2>
-            </Link>
-          </li>
-
-          <li>
-            <Link href={"/sobre"}>
-              <h2>Sobre</h2>
-            </Link>
-          </li>
-          <li>
+    <nav id={id} className={S.menu}>
+      <ul>
+        <li>
+          <Link href={"/perfil/configuracoes"}>
+            <h2>Ver perfil</h2>
+          </Link>
+        </li>
+        <li>
+          <Link href={"/perfil/configuracoes"}>
+            <h2>Configurações</h2>
+          </Link>
+        </li>
+        <li>
+          <Link href={"/perfil/configuracoes"}>
+            <h2>Sobre</h2>
+          </Link>
+        </li>
+        <li>
+          <Link href={"/perfil/configuracoes"}>
             <h2>Sair</h2>
-          </li>
-        </ul>
-      </nav>
-    </div>
+          </Link>
+        </li>
+
+        <li className={S.closeIcon} onClick={onClick}>
+          <ArrowBack />
+        </li>
+      </ul>
+    </nav>
   )
 }

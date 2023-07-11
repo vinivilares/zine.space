@@ -6,6 +6,10 @@
   color: var(--main-color);
 }
 
+.navbar h2 {
+  padding-inline-end: 1rem;
+}
+
 .navbar button {
   outline: transparent;
   border: none;
@@ -14,12 +18,18 @@
 }
 
 .navigation {
+  display: flex;
+  gap: .5rem;
   list-style-type: none;
 }
 
 .navigation li {
   display: flex;
   gap: 1rem;
+}
+
+.closeHamburgerMenu {
+  display: none;
 }
 
 .input {
@@ -43,5 +53,9 @@
 @media (min-width: 1025px) {
   .navbar {
     padding-inline: 10rem;
+  }
+
+  .navbar h2 {
+    padding-inline-end: 0;
   }
 }
