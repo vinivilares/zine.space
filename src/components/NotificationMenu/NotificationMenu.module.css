@@ -1,0 +1,86 @@
+.notificationList {
+  position: fixed;
+  color: var(--main-color);
+  background-color: var(--background-color);
+  width: 100vw;
+  height: 100vh;
+  padding-inline: 1rem;
+  top: 0;
+  display: none;
+  overflow-y: scroll;
+
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.notificationList::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.notificationList {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.notificationList ul {
+  list-style-type: none;
+}
+
+.notificationsScroll {
+  position: fixed;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+
+.header button {
+  outline: transparent;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.notificationItem {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  gap: 0.5rem;
+}
+
+.clearNotifications {
+  border-top: 1px solid var(--main-color);
+
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.notificationItem img {
+  border-radius: 50%;
+}
+
+@media (min-width: 1025px) {
+  .notificationList {
+    background-color: var(--main-color);
+    color: black;
+    width: auto;
+    height: 80vh;
+    top: 4rem;
+    right: 10rem;
+
+    border-radius: 1rem;
+  }
+
+  .header {
+    padding-block: 1rem;
+  }
+
+  .clearNotifications {
+    border-top: 1px solid var(--background-color);
+    padding-block: 1rem;
+    text-align: center;
+  }
+}

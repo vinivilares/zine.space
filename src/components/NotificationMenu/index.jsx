@@ -1,8 +1,12 @@
 import Image from "next/image"
 
-import S from "./NotificationScreen.module.css"
+// import { useState } from "react"
 
-export default function NotificationScreen() {
+import S from "./NotificationMenu.module.css"
+
+import CloseIcon from "../../../icons/CloseIcon"
+
+export default function NotificationMenu({ id, onClick }) {
   const notifications = [
     {
       id: 1,
@@ -87,30 +91,69 @@ export default function NotificationScreen() {
       img: "/profilepic.jpg",
       text: "Jose recomendou Akira",
       date: "7 horas atras"
+    },
+    {
+      id: 15,
+      img: "/profilepic.jpg",
+      text: "Jose recomendou Akira",
+      date: "7 horas atras"
+    },
+    {
+      id: 16,
+      img: "/profilepic.jpg",
+      text: "Jose recomendou Akira",
+      date: "7 horas atras"
+    },
+    {
+      id: 17,
+      img: "/profilepic.jpg",
+      text: "Jose recomendou Akira",
+      date: "7 horas atras"
+    },
+    {
+      id: 18,
+      img: "/profilepic.jpg",
+      text: "Jose recomendou Akira",
+      date: "7 horas atras"
+    },
+    {
+      id: 19,
+      img: "/profilepic.jpg",
+      text: "Jose recomendou Akira 1",
+      date: "7 horas atras"
+    },
+    {
+      id: 20,
+      img: "/profilepic.jpg",
+      text: "Jose recomendou Akira 2",
+      date: "7 horas atras"
     }
   ]
 
   return (
-    <div className={S.container}>
-      <div className={S.title}>
+    <div className={S.notificationList} id={id}>
+      <div className={S.header}>
         <h2 className={S.h2}>Notificações</h2>
+        <button onClick={onClick} className={S.closeIcon}>
+          <CloseIcon />
+        </button>
       </div>
 
-      <div className={S.notificationList}>
+      <ul>
         {notifications.map((item) => (
-          <div className={S.notification} key={item.id}>
+          <li className={S.notificationItem} key={item.id}>
             <Image src={item.img} width={50} height={50} alt="Foto perfil" />
             <div>
               <p>{item.text}</p>
               <p>{item.date}</p>
             </div>
-          </div>
+          </li>
         ))}
+      </ul>
 
-        <div className={S.clearNotifications}>
-          <p>Limpar notificações</p>
-          <p>Notificações serão excluidas automaticamente após 15 dias</p>
-        </div>
+      <div className={S.clearNotifications}>
+        <p>Limpar notificações</p>
+        <p>Notificações serão excluidas automaticamente após 15 dias</p>
       </div>
     </div>
   )
