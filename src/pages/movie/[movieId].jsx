@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import { Navbar } from "components/Navbar"
 
@@ -64,6 +65,9 @@ export default function Movie() {
                   <p>{pessoa.nome}</p>
                 </li>
               ))}
+              <li>
+                <Link href="#">Ver mais</Link>
+              </li>
             </ul>
           </div>
 
@@ -81,6 +85,9 @@ export default function Movie() {
                   <p>{pessoa.nome}</p>
                 </li>
               ))}
+              <li>
+                <Link href="#">Ver mais</Link>
+              </li>
             </ul>
           </div>
         </div>
