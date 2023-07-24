@@ -4,6 +4,8 @@
   justify-content: space-between;
   padding: 1rem;
   color: var(--main-color);
+  
+  margin-inline: auto;
 }
 
 .navbar h2 {
@@ -52,7 +54,8 @@
 
 @media (min-width: 1025px) {
   .navbar {
-    padding-inline: 10rem;
+    /* padding-inline: 10rem; */
+    max-width: 1025px;
   }
 
   .navbar h2 {
