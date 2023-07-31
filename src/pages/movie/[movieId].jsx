@@ -40,7 +40,7 @@ export default function Movie() {
 
         <button className={styles.button}>Adicionar</button>
 
-        <p>
+        <p className={styles.sinopse}>
           2019. 31 years after being destroyed during World War 3, Tokyo (now
           &apos;Neo-Tokyo&lsquo;) has been rebuilt and is a thriving metropolis.
           Shotaro Kaneda is the leader of a biker gang. His friend Tetsuo is
@@ -85,7 +85,7 @@ export default function Movie() {
                   <p>{pessoa.nome}</p>
                 </li>
               ))}
-              <li>
+              <li className={styles.vermais}>
                 <Link href="#">Ver mais</Link>
               </li>
             </ul>

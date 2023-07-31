@@ -54,6 +54,13 @@
   padding: .5rem;
 
   margin-block: 1rem;
+ 
+}
+
+.friends>li:last-child{
+  background: none;
+  color: var(--main-color);
+  justify-content: center;
 }
 
 .friends > li > img {
@@ -63,9 +70,10 @@
   margin-right: 1rem;
 }
 
-.carousel > div {
-  margin-block: 2rem;
+.sinopse{
+  margin-block: 1rem;
 }
+
 
 
 
