@@ -12,6 +12,13 @@
   gap: 1rem;
 }
 
+.reviewCard p {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .reviewCard > img {
   border-radius: .5rem;
 }
