@@ -69,6 +69,8 @@
 
 .carouselContainer {
   text-align: center;
+  margin-block: 1rem;
+  
 }
 
 .carouselContainer h3 {
@@ -88,6 +90,14 @@
 
 .carousel img {
   border-radius: 0.5rem;
+}
+
+.verMais{
+  width: 120px;
+  height: 168px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 1025px) {
