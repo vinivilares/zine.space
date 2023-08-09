@@ -1,4 +1,4 @@
-.feedItem{
+.feedItem {
   margin-block-end: 2rem;
 }
 
@@ -7,7 +7,7 @@
   margin: 1rem;
   background-color: #c1cfda;
   padding: 1rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   justify-content: space-between;
   gap: 1rem;
 }
@@ -20,18 +20,22 @@
 }
 
 .reviewCard > img {
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 @media (min-width: 1025px) {
   .container {
     max-width: 1025px;
     margin: auto;
-    
   }
   .reviewCard {
     flex-direction: row-reverse;
     max-height: 350px;
+  }
+
+  .reviewCard p {
+    display: block;
+    -webkit-line-clamp: 0;
   }
 
   .reviewCard > img {
