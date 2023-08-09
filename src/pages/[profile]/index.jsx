@@ -1,5 +1,6 @@
 import Image from "next/image"
-// import { useRouter } from "next/router"
+import Link from "next/link"
+import { useRouter } from "next/router"
 
 import { useState } from "react"
 
@@ -11,8 +12,8 @@ import InstagramIcon from "../../../icons/InstagramIcon"
 import TwitterIcon from "../../../icons/TwitterIcon"
 
 export default function Profile() {
-  // const router = useRouter()
-  // const { profile } = router.query
+  const router = useRouter()
+  const { profile } = router.query
 
   const [follow, setFollow] = useState(false)
 
@@ -51,6 +52,34 @@ export default function Profile() {
     },
     {
       id: 9,
+      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
+    },
+    {
+      id: 10,
+      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
+    },
+    {
+      id: 11,
+      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
+    },
+    {
+      id: 12,
+      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
+    },
+    {
+      id: 13,
+      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
+    },
+    {
+      id: 14,
+      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
+    },
+    {
+      id: 15,
+      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
+    },
+    {
+      id: 16,
       link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
     }
   ]
@@ -123,7 +152,7 @@ export default function Profile() {
         <div className={S.carouselContainer}>
           <h3>Assistidos</h3>
           <div className={S.carousel}>
-            {posters.map((poster) => (
+            {posters.slice(0, 15).map((poster) => (
               <Image
                 src={poster.link}
                 width={120}
@@ -132,13 +161,16 @@ export default function Profile() {
                 key={poster.id}
               />
             ))}
+            <Link className={S.verMais} href={`/${profile}/assistidos`}>
+              Ver mais
+            </Link>
           </div>
         </div>
 
         <div className={S.carouselContainer}>
           <h3>Recomendados</h3>
           <div className={S.carousel}>
-            {posters.map((poster) => (
+            {posters.slice(0, 15).map((poster) => (
               <Image
                 src={poster.link}
                 width={120}
@@ -147,13 +179,16 @@ export default function Profile() {
                 key={poster.id}
               />
             ))}
+            <Link className={S.verMais} href={`/${profile}/recomendados`}>
+              Ver mais
+            </Link>
           </div>
         </div>
 
         <div className={S.carouselContainer}>
           <h3>Quer Ver</h3>
           <div className={S.carousel}>
-            {posters.map((poster) => (
+            {posters.slice(0, 15).map((poster) => (
               <Image
                 src={poster.link}
                 width={120}
@@ -162,6 +197,9 @@ export default function Profile() {
                 key={poster.id}
               />
             ))}
+            <Link className={S.verMais} href={`/${profile}/querVer`}>
+              Ver mais
+            </Link>
           </div>
         </div>
       </div>
