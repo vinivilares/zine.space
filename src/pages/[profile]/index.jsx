@@ -88,7 +88,7 @@ export default function Profile() {
     <>
       <Navbar />
       <div className={S.container}>
-        <div className={S.userInfo}>
+        <div className={S.userContainer}>
           <Image
             src={"/profilepic.jpg"}
             width={100}
@@ -96,32 +96,30 @@ export default function Profile() {
             alt="Profile Picture"
           />
 
-          <div className={S.profile}>
+          <div className={S.userInfo}>
             <h3>Roberta</h3>
             <div className={S["follow-followers"]}>
-              <p>10.2k Seguindo</p>
-              <p>1m Seguidores</p>
+              <p>100k Seguindo</p>
+              <p>10k Seguidores</p>
             </div>
-            <div className={S.socialMedia}>
-              <TwitterIcon />
-              <p>@roro</p>
-            </div>
-            <div className={S.socialMedia}>
-              <InstagramIcon />
-              <p>@roro</p>
-            </div>
-            {!follow && (
-              <button className={S.button} onClick={() => setFollow(!follow)}>
-                Seguir
-              </button>
-            )}
-
-            {follow && (
-              <button className={S.button} onClick={() => setFollow(!follow)}>
-                Seguindo
-              </button>
-            )}
           </div>
+        </div>
+
+        <div className={S.socialMedia}>
+          {!follow && (
+            <button className={S.button} onClick={() => setFollow(!follow)}>
+              Seguir
+            </button>
+          )}
+
+          {follow && (
+            <button className={S.button} onClick={() => setFollow(!follow)}>
+              Seguindo
+            </button>
+          )}
+
+          <InstagramIcon />
+          <TwitterIcon />
         </div>
 
         <div>
@@ -203,6 +201,14 @@ export default function Profile() {
           </div>
         </div>
       </div>
+
+      {/* 
+      <div>
+        
+
+        
+      </div>
+       */}
     </>
   )
 }
