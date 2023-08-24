@@ -7,47 +7,45 @@
   color: var(--main-color);
 }
 
-.userInfo {
+.userContainer {
   display: flex;
-  align-items: center;
   gap: 1rem;
 }
 
-.userInfo img {
+.userContainer > img {
   border-radius: 50%;
 }
 
-.userInfo > div {
+.userInfo {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-}
-
-.userInfo svg {
-  width: 24px;
-  fill: var(--main-color);
-}
-
-.socialMedia {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .follow-followers {
   display: flex;
-  color: var(--main-color);
   gap: 1rem;
-  place-content: center;
 }
 
 .button {
+  width: 100px;
   background-color: var(--main-color);
   border: none;
   outline: transparent;
   padding-block: 0.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
+}
+
+.socialMedia {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.socialMedia svg {
+  width: 24px;
+  fill: var(--main-color);
 }
 
 .badges {
@@ -70,13 +68,11 @@
 .carouselContainer {
   text-align: center;
   margin-block: 1rem;
-  
 }
 
 .carouselContainer h3 {
-  margin-block: .5rem;
+  margin-block: 0.5rem;
 }
-
 
 .carousel {
   display: grid;
@@ -92,7 +88,7 @@
   border-radius: 0.5rem;
 }
 
-.verMais{
+.verMais {
   width: 120px;
   height: 168px;
   display: flex;
@@ -101,24 +97,22 @@
 }
 
 @media (min-width: 1025px) {
-  .container{
+  .container {
     max-width: 1025px;
     margin: auto;
   }
 
-  .button{
+  .button {
     width: 7rem;
   }
 
-  .profile{
+  .profile {
     margin-top: 2rem;
   }
 
-  .carousel{
+  .carousel {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 }
-
-
