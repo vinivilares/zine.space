@@ -9,6 +9,7 @@
   gap: 0.50rem;
   padding-block: 1.5rem;
   justify-content: center;
+  padding: 1rem;
   
 }
 
@@ -22,6 +23,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
+}
+
+.posters>img{
+  border-radius: 0.5rem;
 }
 
 @media (min-width: 1025px) {
