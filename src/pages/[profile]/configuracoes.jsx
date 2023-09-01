@@ -58,15 +58,17 @@ export default function Configuracoes() {
           <Input id={"nickname"} label={"Nickname"} type={"text"} />
           <Input id={"name"} label={"Nome"} type={"text"} />
           <Input id={"lastname"} label={"Sobrenome"} type={"text"} />
-          <Input id={"birthday"} label={"Data de nascimento"} type={"text"} />
+          <Input id={"birthday"} label={"Data de nascimento"} type={"date"} />
+          <Input id={"instagram"} label={"Instagram"} type={"text"} />
+          <Input id={"tiktok"} label={"Tiktok"} type={"text"} />
+          <Input id={"twitter"} label={"Twitter"} type={"text"} />
           <Input id={"bio"} label={"Biografia"} type={"text"} />
-          <Input id={"instagram"} label={"Instagram link"} type={"url"} />
-          <Input id={"twitter"} label={"Twitter link"} type={"url"} />
         </div>
         <div className={styles.settings}>
           <h3>Configuração de segurança</h3>
 
-          <Input id={"novoEmail"} label={"Novo email"} type={"text"} />
+          <Input id={"emailAtual"} label={"Email atual"} type={"email"} />
+          <Input id={"novoEmail"} label={"Novo email"} type={"email"} />
 
           <div className={styles.inputPassword}>
             <Input

@@ -3,12 +3,12 @@
 }
 
 .label {
-  color: #c1cfda;
+  color: var(--main-color);
   position: absolute;
   bottom: 0.5rem;
   left: 0;
   pointer-events: none;
-  transition: 0.2s ease-in-out;
+  transition: 0.2s;
   width: 100%;
 }
 
@@ -34,9 +34,8 @@
   font-size: 1rem;
 }
 
-.input[type="date"]::before {
-  content: "Birthday: ";
-  color: var(--main-color);
+.input[type="date"]:required:invalid::-webkit-datetime-edit {
+  color: transparent;
 }
 
 .input[type="date"]::-webkit-calendar-picker-indicator {

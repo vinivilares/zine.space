@@ -101,7 +101,7 @@ export default function Login() {
 
           <Input id={"lastname"} label={"Lastname"} type="text" />
 
-          <Input id={"birthday"} type="date" />
+          <Input id={"birthday"} label={"Data de nascimento"} type="date" />
 
           <Input id={"email"} label={"Email"} type="text" />
 
