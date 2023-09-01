@@ -1,11 +1,43 @@
 import Image from "next/image"
 
+import { useState } from "react"
+
 import Input from "components/Input"
 import { Navbar } from "components/Navbar"
 
 import styles from "styles/Configuracoes.module.css"
 
+import EyeIcon from "../../../icons/EyeIcon"
+import EyelconClosed from "../../../icons/EyelconClosed"
+
 export default function Configuracoes() {
+  const [visiblePassword, setVisiblePassword] = useState(false)
+
+  const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(false)
+
+  function showPassword(idPassword) {
+    idPassword = document.getElementById(`${idPassword}`)
+
+    if (idPassword.type == "password" && idPassword.name == "password") {
+      idPassword.type = "text"
+      setVisiblePassword(true)
+    } else if (idPassword.type == "text" && idPassword.name == "password") {
+      idPassword.type = "password"
+      setVisiblePassword(false)
+    }
+
+    if (idPassword.type == "password" && idPassword.name == "repeatPassword") {
+      idPassword.type = "text"
+      setVisibleRepeatPassword(true)
+    } else if (
+      idPassword.type == "text" &&
+      idPassword.name == "repeatPassword"
+    ) {
+      idPassword.type = "password"
+      setVisibleRepeatPassword(false)
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -18,7 +50,7 @@ export default function Configuracoes() {
             alt="Foto de perfil"
           />
 
-          <button>Alterar imagem</button>
+          <button className={styles.button}>Alterar imagem</button>
         </div>
         <div className={styles.settings}>
           <h3>Configurar perfil</h3>
@@ -35,12 +67,43 @@ export default function Configuracoes() {
           <h3>Configuração de segurança</h3>
 
           <Input id={"novoEmail"} label={"Novo email"} type={"text"} />
-          <Input id={"senha"} label={"Senha"} type={"password"} />
-          <Input id={"novaSenha"} label={"Nova senha"} type={"password"} />
+
+          <div className={styles.inputPassword}>
+            <Input
+              id={"password"}
+              label={"Senha Atual"}
+              type="password"
+              name="password"
+            />
+            <button
+              className={styles.showPasswordIcon}
+              onClick={() => {
+                showPassword("password")
+              }}
+            >
+              {!visiblePassword && <EyeIcon />}
+              {visiblePassword && <EyelconClosed />}
+            </button>
+          </div>
+          <div className={styles.inputPassword}>
+            <Input
+              id={"repeatPassword"}
+              label={"Nova senha"}
+              type="password"
+              name="repeatPassword"
+            />
+            <button
+              className={styles.showPasswordIcon}
+              onClick={() => {
+                showPassword("repeatPassword")
+              }}
+            >
+              {!visibleRepeatPassword && <EyeIcon />}
+              {visibleRepeatPassword && <EyelconClosed />}
+            </button>
+          </div>
         </div>
-        <div className={styles.button}>
-          <button>Salvar</button>
-        </div>
+        <button className={styles.button}>Salvar</button>
       </div>
     </>
   )
