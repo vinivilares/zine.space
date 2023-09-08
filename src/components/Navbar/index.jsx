@@ -44,7 +44,7 @@ export function Navbar() {
       </Link>
 
       <div className={S.input}>
-        <input type={"text"} />
+        <input type={"text"} placeholder="Pesquisar" />
         <button>
           <SearchIcon />
         </button>
