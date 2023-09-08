@@ -45,11 +45,6 @@
   border: none;
 }
 
-.inputPassword input:focus,
-.inputPassword input:valid {
-  border: none;
-}
-
 .showPasswordIcon {
   border: none;
   background-color: transparent;
