@@ -55,25 +55,25 @@ export default function Configuracoes() {
         <div className={styles.settings}>
           <h3>Configurar perfil</h3>
 
-          <Input id={"nickname"} label={"Nickname"} type={"text"} />
-          <Input id={"name"} label={"Nome"} type={"text"} />
-          <Input id={"lastname"} label={"Sobrenome"} type={"text"} />
-          <Input id={"birthday"} label={"Data de nascimento"} type={"date"} />
-          <Input id={"instagram"} label={"Instagram"} type={"text"} />
-          <Input id={"tiktok"} label={"Tiktok"} type={"text"} />
-          <Input id={"twitter"} label={"Twitter"} type={"text"} />
-          <Input id={"bio"} label={"Biografia"} type={"text"} />
+          <Input id={"nickname"} placeholder={"Nickname"} type={"text"} />
+          <Input id={"name"} placeholder={"Nome"} type={"text"} />
+          <Input id={"lastname"} placeholder={"Sobrenome"} type={"text"} />
+          <Input id={"birthday"} type={"date"} />
+          <Input id={"instagram"} placeholder={"Instagram"} type={"text"} />
+          <Input id={"tiktok"} placeholder={"Tiktok"} type={"text"} />
+          <Input id={"twitter"} placeholder={"Twitter"} type={"text"} />
+          <Input id={"bio"} placeholder={"Biografia"} type={"text"} />
         </div>
         <div className={styles.settings}>
           <h3>Configuração de segurança</h3>
 
-          <Input id={"emailAtual"} label={"Email atual"} type={"email"} />
-          <Input id={"novoEmail"} label={"Novo email"} type={"email"} />
+          <Input id={"emailAtual"} placeholder={"Email atual"} type={"email"} />
+          <Input id={"novoEmail"} placeholder={"Novo email"} type={"email"} />
 
           <div className={styles.inputPassword}>
             <Input
               id={"password"}
-              label={"Senha Atual"}
+              placeholder={"Senha Atual"}
               type="password"
               name="password"
             />
@@ -90,7 +90,7 @@ export default function Configuracoes() {
           <div className={styles.inputPassword}>
             <Input
               id={"repeatPassword"}
-              label={"Nova senha"}
+              placeholder={"Nova senha"}
               type="password"
               name="repeatPassword"
             />
