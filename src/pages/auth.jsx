@@ -51,11 +51,11 @@ export default function Login() {
       {containerLogin && (
         <div className={styles.login}>
           <div>
-            <Input id={"email"} label={"Email"} type="text" />
+            <Input id={"email"} placeholder={"Email"} type="text" />
             <div className={styles.inputPassword}>
               <Input
                 id={"password"}
-                label={"Password"}
+                placeholder={"Password"}
                 type="password"
                 name="password"
               />
@@ -96,19 +96,17 @@ export default function Login() {
 
       {!containerLogin && (
         <div className={styles.createAccount}>
-          <Input id={"nickname"} label={"Nickname"} type="text" />
-          <Input id={"name"} label={"Name"} type="text" />
+          <Input id={"nickname"} placeholder={"Nickname"} type="text" />
+          <Input id={"name"} placeholder={"Name"} type="text" />
 
-          <Input id={"lastname"} label={"Lastname"} type="text" />
+          <Input id={"lastname"} placeholder={"Lastname"} type="text" />
 
-          <Input id={"birthday"} label={"Data de nascimento"} type="date" />
-
-          <Input id={"email"} label={"Email"} type="text" />
+          <Input id={"email"} placeholder={"Email"} type="text" />
 
           <div className={styles.inputPassword}>
             <Input
               id={"password"}
-              label={"Password"}
+              placeholder={"Password"}
               type="password"
               name="password"
             />
@@ -126,7 +124,7 @@ export default function Login() {
           <div className={styles.inputPassword}>
             <Input
               id={"repeatPassword"}
-              label={"Repeat password"}
+              placeholder={"Repeat password"}
               type="password"
               name="repeatPassword"
             />
