@@ -4,12 +4,10 @@
   background-color: var(--background-color);
   width: 100vw;
   height: 100vh;
-  padding-inline: 1rem;
+  padding: 1rem;
   top: 0;
   display: none;
   overflow-y: scroll;
-
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
 .notificationList::-webkit-scrollbar {
@@ -26,15 +24,10 @@
   list-style-type: none;
 }
 
-.notificationsScroll {
-  position: fixed;
-}
-
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
 }
 
 .header button {
@@ -62,16 +55,24 @@
   border-radius: 50%;
 }
 
+@media (max-width: 1025px) {
+  .notificationList {
+    left: 0;
+  }
+}
+
 @media (min-width: 1025px) {
   .notificationList {
+    position: absolute;
     background-color: var(--main-color);
-    color: black;
+    color: var(--background-color);
     width: auto;
     height: 80vh;
     top: 4rem;
-    right: 10rem;
+    right: 0;
 
     border-radius: 1rem;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   }
 
   .header {

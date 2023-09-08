@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-// import Image from "next/image"
+
 import Link from "next/link"
 
 import NotificationMenu from "components/NotificationMenu"
@@ -38,45 +38,43 @@ export function Navbar() {
   }
 
   return (
-    <>
-      <nav className={S.navbar}>
-        <Link href={"/feed"}>
-          <h2>Zine</h2>
-        </Link>
+    <nav className={S.navbar}>
+      <Link href={"/feed"}>
+        <h2>Zine</h2>
+      </Link>
 
-        <div className={S.input}>
-          <input type={"text"} />
-          <button>
-            <SearchIcon />
+      <div className={S.input}>
+        <input type={"text"} />
+        <button>
+          <SearchIcon />
+        </button>
+      </div>
+
+      <ul className={S.navigation}>
+        <li>
+          <button onClick={handleNotifications}>
+            <BellIcon />
           </button>
-        </div>
+        </li>
 
-        <ul className={S.navigation}>
-          <li>
-            <button onClick={handleNotifications}>
-              <BellIcon />
-            </button>
-          </li>
+        <li>
+          <button onClick={handleSettingsMenu} id="hamburgerMenu">
+            <HamburgerIcon />
+          </button>
+        </li>
 
-          <li>
-            <button onClick={handleSettingsMenu} id="hamburgerMenu">
-              <HamburgerIcon />
-            </button>
-          </li>
-
-          <li>
-            <button
-              onClick={handleSettingsMenu}
-              className={S.closeHamburgerMenu}
-              id="closeHamburgerMenu"
-            >
-              <CloseIcon />
-            </button>
-          </li>
-        </ul>
-      </nav>
+        <li>
+          <button
+            onClick={handleSettingsMenu}
+            className={S.closeHamburgerMenu}
+            id="closeHamburgerMenu"
+          >
+            <CloseIcon />
+          </button>
+        </li>
+      </ul>
       <SettingsMenu id="settingsMenu" onClick={handleSettingsMenu} />
       <NotificationMenu id="notifications" onClick={handleNotifications} />
-    </>
+    </nav>
   )
 }

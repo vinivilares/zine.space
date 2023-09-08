@@ -1,13 +1,10 @@
 .menu {
   display: none;
   position: fixed;
-
   width: 100vw;
   height: 100vh;
-
   top: 0;
   place-items: center;
-
   background-color: var(--background-color);
   color: var(--main-color);
   text-align: center;
@@ -27,15 +24,22 @@
   list-style-type: none;
 }
 
+@media (max-width: 1025px) {
+  .menu {
+    left: 0;
+  }
+}
+
 @media (min-width: 1025px) {
   .menu {
+    position: absolute;
     color: var(--background-color);
     background-color: var(--main-color);
 
     height: auto;
     width: auto;
     top: 4rem;
-    right: 10rem;
+    right: 0;
     border-radius: 1rem;
     font-size: 0.75rem;
 
