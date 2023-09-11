@@ -5,7 +5,20 @@ import { Navbar } from "components/Navbar"
 
 import styles from "styles/Movie.module.css"
 
-export default function Movie() {
+export async function getServerSideProps(context) {
+  const res = await fetch(
+    // eslint-disable-next-line no-undef
+    `http://www.omdbapi.com/?i=${context.query.movieId}&apikey=${process.env.APIKEY}&plot=full`
+  )
+
+  const movie = await res.json()
+
+  return {
+    props: { movie }
+  }
+}
+
+export default function Movie({ movie }) {
   const pessoas = [
     { id: 1, img: "/profilepic.jpg", nome: "Roberta 1" },
     { id: 2, img: "/profilepic.jpg", nome: "Roberta 2" },
@@ -22,7 +35,7 @@ export default function Movie() {
           {/* Left */}
           <div className={styles.movieLeft}>
             <Image
-              src="https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_SX300.jpg"
+              src={movie.Poster}
               width={300}
               height={444}
               alt="Poster do filme"
@@ -31,24 +44,29 @@ export default function Movie() {
 
           {/* Right */}
           <div>
-            <h1>Akira</h1>
-            <p>Katsuhiro Otomo - 1988</p>
-            <p>14 - Ficção cientifica/Ação</p>
-            <p>IMDB 4.3</p>
+            <h1>{movie.Title}</h1>
+            <p>{movie.Runtime}</p>
+            <p>
+              {movie.Director != "N/A" ? movie.Director : movie.Writer} -{" "}
+              {movie.Year}
+            </p>
+            <p>{movie.Rated}</p>
+            <p>{movie.Genre}</p>
+            <p>{movie.Actors}</p>
+            {movie.Ratings.map((item) => (
+              <p key={item.Value}>
+                {item.Source == "Internet Movie Database"
+                  ? "IMDB"
+                  : item.Source}
+                : {item.Value}
+              </p>
+            ))}
           </div>
         </div>
 
         <button className={styles.button}>Adicionar</button>
 
-        <p className={styles.sinopse}>
-          2019. 31 years after being destroyed during World War 3, Tokyo (now
-          &apos;Neo-Tokyo&lsquo;) has been rebuilt and is a thriving metropolis.
-          Shotaro Kaneda is the leader of a biker gang. His friend Tetsuo is
-          injured in an accident and taken to a top-secret government facility.
-          He develops telekinetic powers but decides to use them for evil rather
-          than good. He has the same powers as Akira, the force that destroyed
-          Tokyo in 1988, and now it appears that history will repeat itself.
-        </p>
+        <p className={styles.sinopse}>{movie.Plot}</p>
 
         <div className={styles.carousel}>
           <div>
