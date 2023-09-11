@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import Input from "components/Input"
 
-import styles from "../styles/Auth.module.css"
+import styles from "../styles/Home.module.css"
 
 import EyeIcon from "../../icons/EyeIcon"
 import EyelconClosed from "../../icons/EyelconClosed"
