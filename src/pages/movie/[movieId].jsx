@@ -44,13 +44,11 @@ export default function Movie({ movie }) {
 
           {/* Right */}
           <div>
-            <h1>{movie.Title}</h1>
-            <p>{movie.Runtime}</p>
+            <h2>{movie.Title}</h2>
             <p>
-              {movie.Director != "N/A" ? movie.Director : movie.Writer} -{" "}
-              {movie.Year}
+              {movie.Runtime} - {movie.Year} - {movie.Rated}
             </p>
-            <p>{movie.Rated}</p>
+            <p>{movie.Director != "N/A" ? movie.Director : movie.Writer}</p>
             <p>{movie.Genre}</p>
             <p>{movie.Actors}</p>
             {movie.Ratings.map((item) => (
