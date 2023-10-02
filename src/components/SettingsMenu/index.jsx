@@ -9,7 +9,7 @@ export default function SettingsMenu({ id, onClick }) {
     <nav id={id} className={S.menu}>
       <ul>
         <li>
-          <Link href={"/perfil/configuracoes"}>
+          <Link href={"#"}>
             <h2>Ver perfil</h2>
           </Link>
         </li>
@@ -19,12 +19,12 @@ export default function SettingsMenu({ id, onClick }) {
           </Link>
         </li>
         <li>
-          <Link href={"/perfil/configuracoes"}>
+          <Link href={"/sobre"}>
             <h2>Sobre</h2>
           </Link>
         </li>
         <li>
-          <Link href={"/perfil/configuracoes"}>
+          <Link href={"#"}>
             <h2>Sair</h2>
           </Link>
         </li>
