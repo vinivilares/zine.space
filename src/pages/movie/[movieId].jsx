@@ -8,7 +8,7 @@ import styles from "styles/Movie.module.css"
 export async function getServerSideProps(context) {
   const res = await fetch(
     // eslint-disable-next-line no-undef
-    `http://www.omdbapi.com/?t=${context.query.movieId}&apikey=${process.env.NEXT_PUBLIC_OMDBAPIKEY}&plot=full`
+    `http://www.omdbapi.com/?i=${context.query.movieId}&apikey=${process.env.NEXT_PUBLIC_OMDBAPIKEY}&plot=full`
   )
 
   const movie = await res.json()
@@ -74,7 +74,12 @@ export default function Movie({ movie }) {
 
         <div className={styles.carousel}>
           <div>
-            <h2>Amigos que viram</h2>
+            {movie.Type == "game" ? (
+              <h2>Amigos que jogaram</h2>
+            ) : (
+              <h2>Amigos que viram</h2>
+            )}
+
             <ul className={styles.friends}>
               {pessoas.map((pessoa) => (
                 <li key={pessoa.id}>

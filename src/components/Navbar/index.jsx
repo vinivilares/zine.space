@@ -97,7 +97,7 @@ export function Navbar() {
           />
 
           <Link href={`/search?s=${searchTerm}`}>
-            <button>
+            <button onClick={clearSearch}>
               <SearchIcon />
             </button>
           </Link>
@@ -137,7 +137,7 @@ export function Navbar() {
             {results.slice(0, 5).map((result, index) => (
               <Link
                 key={index}
-                href={`/movie/${result.Title}&y=${result.Year}`}
+                href={`/movie/${result.imdbID}`}
                 onClick={clearSearch}
               >
                 <div className={S.movie}>
@@ -154,6 +154,7 @@ export function Navbar() {
                       width={120}
                       height={168}
                       alt={`Poster de ${result.Title}`}
+                      priority
                     />
                   )}
 
