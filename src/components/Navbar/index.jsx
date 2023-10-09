@@ -97,7 +97,7 @@ export function Navbar() {
           />
 
           <Link href={`/search?s=${searchTerm}`}>
-            <button>
+            <button onClick={clearSearch}>
               <SearchIcon />
             </button>
           </Link>
