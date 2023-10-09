@@ -34,10 +34,12 @@
 }
 
 .pages > button {
+  font-weight: bolder;
   cursor: pointer;
   border: none;
   outline: transparent;
-  background-color: var(--main-color);
+  background-color: transparent;
+  color: var(--main-color);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
 }
@@ -69,5 +71,13 @@
   .container {
     max-width: 1025px;
     margin: auto;
+  }
+
+  .pages > button {
+    background-color: var(--main-color);
+    font-weight: normal;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
   }
 }

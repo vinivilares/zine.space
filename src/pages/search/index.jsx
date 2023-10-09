@@ -68,11 +68,16 @@ export default function Search({ results, pages }) {
           >
             Séries
           </h3>
+          <h3
+            onClick={() => router.push(`/search?s=${router.query.s}&type=game`)}
+          >
+            Games
+          </h3>
           <h3>Usuário</h3>
         </div>
 
         {results.map((result, index) => (
-          <Link key={index} href={`/movie/${result.Title}&y=${result.Year}`}>
+          <Link key={index} href={`/movie/${result.imdbID}`}>
             <div className={styles.filme} key={result.imdbID}>
               {result.Poster != "N/A" ? (
                 <Image
@@ -80,6 +85,7 @@ export default function Search({ results, pages }) {
                   width={120}
                   height={168}
                   alt={`Poster de ${result.Title}`}
+                  priority
                 />
               ) : (
                 <Image
@@ -99,7 +105,7 @@ export default function Search({ results, pages }) {
         ))}
 
         <div className={styles.pages}>
-          {pages.map((page, index) => (
+          {pages.slice(0, 10).map((page, index) => (
             <button
               key={index}
               onClick={() =>
