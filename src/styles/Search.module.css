@@ -6,6 +6,16 @@
   margin-left: 1rem;
 }
 
+.filter button {
+  background-color: transparent;
+  color: var(--main-color);
+  border: none;
+  outline: transparent;
+  font-size: 1rem;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
 .busca {
   margin: 1rem;
   color: var(--main-color);
@@ -29,11 +39,18 @@
 
 .pages {
   margin-block: 1rem;
+  gap: 1rem;
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: center;
 }
 
-.pages > button {
+.pages svg {
+  fill: var(--main-color);
+  cursor: pointer;
+}
+
+.pages > select {
   font-weight: bolder;
   cursor: pointer;
   border: none;
@@ -73,7 +90,7 @@
     margin: auto;
   }
 
-  .pages > button {
+  .pages > select {
     background-color: var(--main-color);
     font-weight: normal;
     color: black;
