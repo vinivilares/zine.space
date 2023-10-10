@@ -2,9 +2,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
+import { useRef } from "react"
+
 import { Navbar } from "components/Navbar"
 
 import styles from "styles/Search.module.css"
+
+import NavigateAfter from "../../../icons/NavigateAfter"
+import NavigateBefore from "../../../icons/NavigateBefore"
 
 export async function getServerSideProps(ctx) {
   const results = []
@@ -42,6 +47,7 @@ export async function getServerSideProps(ctx) {
 
 export default function Search({ results, pages }) {
   const router = useRouter()
+  const page = useRef(1)
 
   return (
     <>
@@ -51,29 +57,39 @@ export default function Search({ results, pages }) {
           Resultados para &quot;{router.query.s}&quot;
         </h1>
         <div className={styles.filter}>
-          <h3 onClick={() => router.push(`/search?s=${router.query.s}`)}>
+          <button
+            onClick={() => {
+              router.push(`/search?s=${router.query.s}`)
+              page.current.value = 1
+            }}
+          >
             Todos
-          </h3>
-          <h3
-            onClick={() =>
+          </button>
+          <button
+            onClick={() => {
               router.push(`/search?s=${router.query.s}&type=movie`)
-            }
+              page.current.value = 1
+            }}
           >
             Filmes
-          </h3>
-          <h3
-            onClick={() =>
+          </button>
+          <button
+            onClick={() => {
               router.push(`/search?s=${router.query.s}&type=series`)
-            }
+              page.current.value = 1
+            }}
           >
             Séries
-          </h3>
-          <h3
-            onClick={() => router.push(`/search?s=${router.query.s}&type=game`)}
+          </button>
+          <button
+            onClick={() => {
+              router.push(`/search?s=${router.query.s}&type=game`)
+              page.current.value = 1
+            }}
           >
             Games
-          </h3>
-          <h3>Usuário</h3>
+          </button>
+          <button>Usuário</button>
         </div>
 
         {results.map((result, index) => (
@@ -105,20 +121,41 @@ export default function Search({ results, pages }) {
         ))}
 
         <div className={styles.pages}>
-          {pages.slice(0, 10).map((page, index) => (
-            <button
-              key={index}
+          {page.current.value > 1 ? (
+            <NavigateBefore
               onClick={() =>
                 router.push(
-                  `/search?s=${router.query.s}&type=${router.query.type}&page=${
-                    index + 1
-                  }`
+                  `/search?s=${router.query.s}&type=${
+                    router.query.type
+                  }&page=${--page.current.value}`
                 )
               }
-            >
-              {index + 1}
-            </button>
-          ))}
+            />
+          ) : null}
+
+          <select
+            ref={page}
+            onChange={() =>
+              router.push(
+                `/search?s=${router.query.s}&[?type=${router.query.type}]&page=${page.current.value}`
+              )
+            }
+          >
+            {pages.map((page, index) => (
+              <option key={index}>{index + 1}</option>
+            ))}
+          </select>
+          {page.current.value == pages.length ? null : (
+            <NavigateAfter
+              onClick={() =>
+                router.push(
+                  `/search?s=${router.query.s}&[?type=${
+                    router.query.type
+                  }]&page=${++page.current.value}`
+                )
+              }
+            />
+          )}
         </div>
 
         <div className={styles.separador}></div>
