@@ -1,11 +1,16 @@
-import { useState } from "react"
+import { useRouter } from "next/router"
+
+import { useEffect, useState } from "react"
 
 import Input from "components/Input"
 
 import styles from "../styles/Home.module.css"
 
+import { auth } from "../../firebase"
 import EyeIcon from "../../icons/EyeIcon"
 import EyelconClosed from "../../icons/EyelconClosed"
+
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 
 export default function Login() {
   const [containerLogin, setContainerLogin] = useState(true)
@@ -13,6 +18,34 @@ export default function Login() {
   const [visiblePassword, setVisiblePassword] = useState(false)
 
   const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(false)
+
+  const [login, setLogin] = useState({ email: undefined, password: undefined })
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useState({})
+  const router = useRouter()
+  // Verificar se esta logado
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+
+      if (currentUser) {
+        router.push("/feed")
+      }
+    })
+  }, [router])
+  //função que faz login
+  async function handleLogin() {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        login.email,
+        login.password
+      )
+      console.log(user)
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 
   function showPassword(idPassword) {
     idPassword = document.getElementById(`${idPassword}`)
@@ -51,13 +84,23 @@ export default function Login() {
       {containerLogin && (
         <div className={styles.login}>
           <div>
-            <Input id={"email"} placeholder={"Email"} type="text" />
+            <Input
+              id={"email"}
+              placeholder={"Email"}
+              type="text"
+              onChange={(event) => {
+                setLogin({ ...login, email: event.target.value })
+              }}
+            />
             <div className={styles.inputPassword}>
               <Input
                 id={"password"}
                 placeholder={"Password"}
                 type="password"
                 name="password"
+                onChange={(event) => {
+                  setLogin({ ...login, password: event.target.value })
+                }}
               />
               <button
                 className={styles.showPasswordIcon}
@@ -69,7 +112,9 @@ export default function Login() {
                 {visiblePassword && <EyelconClosed />}
               </button>
             </div>
-            <button className={styles.button}>Login</button>
+            <button className={styles.button} onClick={handleLogin}>
+              Login
+            </button>
           </div>
 
           <p className={styles.p}>Forgot password?</p>
