@@ -6,11 +6,17 @@ import Input from "components/Input"
 
 import styles from "../styles/Home.module.css"
 
-import { auth } from "../../firebase"
+import { auth, db } from "../../firebase"
 import EyeIcon from "../../icons/EyeIcon"
 import EyelconClosed from "../../icons/EyelconClosed"
 
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendEmailVerification,
+  signInWithEmailAndPassword
+} from "firebase/auth"
+import { doc, getDoc, setDoc } from "firebase/firestore"
 
 export default function Login() {
   const [containerLogin, setContainerLogin] = useState(true)
@@ -20,9 +26,19 @@ export default function Login() {
   const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(false)
 
   const [login, setLogin] = useState({ email: undefined, password: undefined })
+  const [register, setRegister] = useState({
+    email: undefined,
+    password: undefined,
+    confirmPassowrd: undefined,
+    nickname: undefined,
+    name: undefined,
+    lastname: undefined
+  })
+
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState({})
   const router = useRouter()
+
   // Verificar se esta logado
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -31,8 +47,11 @@ export default function Login() {
       if (currentUser) {
         router.push("/feed")
       }
+
+      console.log(currentUser)
     })
   }, [router])
+
   //função que faz login
   async function handleLogin() {
     try {
@@ -44,6 +63,51 @@ export default function Login() {
       console.log(user)
     } catch (error) {
       alert(error.message)
+    }
+  }
+
+  // Função que cria conta com email e senha
+  const handleSignup = async () => {
+    const docRef = doc(db, "users", register.nickname)
+    const docSnap = await getDoc(docRef)
+    const nickname = docSnap
+
+    console.log(nickname.id.toUpperCase())
+
+    // verifica se as senhas são iguais e se já existe o usuario com nickname
+    try {
+      if (register.password !== register.confirmPassowrd) {
+        throw new Error("As senhas não são correspondentes")
+      }
+
+      if (docSnap.exists()) {
+        throw new Error("Nickname já utilizado")
+      }
+
+      if (nickname.id.toUpperCase() == register.nickname) {
+        throw new Error("Usuario ja utilizado")
+      }
+
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        register.email,
+        register.password
+      )
+
+      await sendEmailVerification(user)
+
+      await setDoc(doc(db, "users", register.nickname), {
+        uid: user.uid,
+        email: user.email,
+        nome: register.name,
+        sobrenome: register.lastname
+      })
+
+      router.push("/feed")
+
+      alert("Verifique seu email para confirmar sua conta")
+    } catch (error) {
+      alert("Não foi possivel criar a conta - " + error.message)
     }
   }
 
@@ -69,6 +133,7 @@ export default function Login() {
       setVisibleRepeatPassword(false)
     }
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -141,12 +206,41 @@ export default function Login() {
 
       {!containerLogin && (
         <div className={styles.createAccount}>
-          <Input id={"nickname"} placeholder={"Nickname"} type="text" />
-          <Input id={"name"} placeholder={"Name"} type="text" />
+          <Input
+            id={"nickname"}
+            placeholder={"Nickname"}
+            type="text"
+            onChange={() =>
+              setRegister({ ...register, nickname: event.target.value })
+            }
+          />
 
-          <Input id={"lastname"} placeholder={"Lastname"} type="text" />
+          <Input
+            id={"name"}
+            placeholder={"Name"}
+            type="text"
+            onChange={() =>
+              setRegister({ ...register, name: event.target.value })
+            }
+          />
 
-          <Input id={"email"} placeholder={"Email"} type="text" />
+          <Input
+            id={"lastname"}
+            placeholder={"Lastname"}
+            type="text"
+            onChange={() =>
+              setRegister({ ...register, lastname: event.target.value })
+            }
+          />
+
+          <Input
+            id={"email"}
+            placeholder={"Email"}
+            type="text"
+            onChange={() =>
+              setRegister({ ...register, email: event.target.value })
+            }
+          />
 
           <div className={styles.inputPassword}>
             <Input
@@ -154,6 +248,9 @@ export default function Login() {
               placeholder={"Password"}
               type="password"
               name="password"
+              onChange={() =>
+                setRegister({ ...register, password: event.target.value })
+              }
             />
             <button
               className={styles.showPasswordIcon}
@@ -172,6 +269,12 @@ export default function Login() {
               placeholder={"Repeat password"}
               type="password"
               name="repeatPassword"
+              onChange={() =>
+                setRegister({
+                  ...register,
+                  confirmPassowrd: event.target.value
+                })
+              }
             />
             <button
               className={styles.showPasswordIcon}
@@ -184,7 +287,9 @@ export default function Login() {
             </button>
           </div>
 
-          <button className={styles.button}>Create account</button>
+          <button className={styles.button} onClick={handleSignup}>
+            Create account
+          </button>
           <p className={styles.p}>
             Already have an account.{" "}
             <span
