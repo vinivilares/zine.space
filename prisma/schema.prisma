@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Users {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  senha         String
+  nickname      String         @unique
+  nome          String
+  dt_nascimento DateTime
+  biografia     String?
+  imagem        String?
+  tiktok        String?
+  instagram     String?
+  twitter       String?
+  Assistidos    Assistidos[]
+  Recomendados  Recomendados[]
+  QuerVer       QuerVer[]
+  Notificacoes  Notificacoes[]
+  Reviews       Reviews[]
+  seguidores    Follows[]      @relation("seguindo")
+  seguindo      Follows[]      @relation("seguidor")
+}
+
+model Assistidos {
+  id           Int            @id @default(autoincrement())
+  idFilme      String         @unique
+  idUser       Users[]
+  Reviews      Reviews[]
+  Recomendados Recomendados[]
+}
+
+model Recomendados {
+  id           Int        @id @default(autoincrement())
+  idFilme      Assistidos @relation(fields: [assistidosId], references: [id])
+  idUser       Users[]
+  assistidosId Int
+
+  @@index([assistidosId])
+}
+
+model QuerVer {
+  id      Int     @id @default(autoincrement())
+  idFilme String  @unique
+  idUser  Users[]
+}
+
+model Follows {
+  follower   Users @relation("seguidor", fields: [idSeguidor], references: [id])
+  idSeguidor Int
+  following  Users @relation("seguindo", fields: [idSeguindo], references: [id])
+  idSeguindo Int
+
+  @@id([idSeguidor, idSeguindo])
+  @@index([idSeguidor])
+  @@index([idSeguindo])
+}
+
+// Testar como vai ficar
+model Notificacoes {
+  id         Int      @id @default(autoincrement())
+  idUser     Users[]
+  idSeguidor Int
+  createdAt  DateTime @default(now())
+}
+
+// Limitar o tamanho do review
+model Reviews {
+  id           Int        @id @default(autoincrement())
+  idUser       Users      @relation(fields: [usersId], references: [id])
+  usersId      Int
+  review       String
+  nota         Float
+  idFilme      Assistidos @relation(fields: [assistidosId], references: [id])
+  spoiler      Boolean
+  assistidosId Int
+
+  @@index([usersId])
+  @@index([assistidosId])
+}

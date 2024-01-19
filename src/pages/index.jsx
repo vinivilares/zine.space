@@ -31,8 +31,7 @@ export default function Login() {
     password: undefined,
     confirmPassowrd: undefined,
     nickname: undefined,
-    name: undefined,
-    lastname: undefined
+    name: undefined
   })
 
   // eslint-disable-next-line no-unused-vars
@@ -99,8 +98,7 @@ export default function Login() {
       await setDoc(doc(db, "users", register.nickname), {
         uid: user.uid,
         email: user.email,
-        nome: register.name,
-        sobrenome: register.lastname
+        nome: register.name
       })
 
       router.push("/feed")
@@ -225,9 +223,9 @@ export default function Login() {
           />
 
           <Input
-            id={"lastname"}
-            placeholder={"Lastname"}
-            type="text"
+            id={"birthday"}
+            // placeholder={"Birthday"}
+            type="date"
             onChange={() =>
               setRegister({ ...register, lastname: event.target.value })
             }
