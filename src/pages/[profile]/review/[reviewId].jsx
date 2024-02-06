@@ -8,58 +8,60 @@ import ReviewUserInfo from "components/ReviewUserInfo"
 
 import S from "styles/Review.module.css"
 
-export default function Review() {
+export default function Review({ dadosReview }) {
   return (
     <>
       <Navbar />
       <div className={S.container}>
         <div className={S.topo}>
           <ReviewUserInfo
-            userName={"Roberta"}
-            userImage={"/profilepic.jpg"}
-            movie={"Akira"}
+            nome={dadosReview.user.nome}
+            nickname={dadosReview.user.nickname}
+            userImage={dadosReview.user.imagem}
+            movie={dadosReview.filmeReview.data.Title}
+            nota={dadosReview.review.nota}
           />
         </div>
         <div className={S.review}>
           <div className={S.movie}>
             <Image
-              src="https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_SX300.jpg"
-              // TODO - Alterar o link da imagem para vir do banco de dados
+              src={dadosReview.filmeReview.data.Poster}
               alt="Poster"
               width={100}
               height={148}
+              priority
             />
             <div>
-              <h3>Akira</h3>
-              <p>1988 - R</p>
-              <p>Animation, Action, Drama</p>
+              <h3>{dadosReview.filmeReview.data.Title}</h3>
+
+              {dadosReview.filmeReview.data.Ratings.map((nota) => (
+                <p key={nota.id}>
+                  {nota.Source == "Internet Movie Database"
+                    ? "IMDB"
+                    : nota.Source}
+                  : <b>{nota.Value}</b>
+                </p>
+              ))}
+              <p>{dadosReview.filmeReview.data.Genre}</p>
             </div>
           </div>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aperiam
-            pariatur omnis dolorem, nam commodi explicabo officiis, rerum ut
-            labore alias officia voluptatum hic! Id cumque fugiat rerum ad
-            ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. In
-            aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
-            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
-            ad ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            In aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
-            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
-            ad ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            In aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
-            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
-            ad ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            In aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
-            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
-            ad ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            In aperiam pariatur omnis dolorem, nam commodi explicabo officiis,
-            rerum ut labore alias officia voluptatum hic! Id cumque fugiat rerum
-            ad ipsam.
-          </p>
+          <p>{dadosReview.review.review}</p>
         </div>
 
         <ReviewOptions />
       </div>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const { profile, reviewId } = context.query
+  const res = await fetch(
+    `http://localhost:3000/api/${profile}/review/${reviewId}`
+  )
+  const dadosReview = await res.json()
+
+  return {
+    props: { dadosReview }
+  }
 }
