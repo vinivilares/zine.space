@@ -42,7 +42,9 @@ export default function querVer({ user }) {
 
 export async function getServerSideProps(context) {
   const { profile } = context.query
-  const res = await fetch(`http://localhost:3000/api/${profile}/querVer`)
+  const res = await fetch(
+    `https://zine-space.vercel.app/api/${profile}/querVer`
+  )
   const user = await res.json()
   return {
     props: { user }

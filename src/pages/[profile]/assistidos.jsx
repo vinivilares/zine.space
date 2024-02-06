@@ -43,7 +43,9 @@ export default function Assistidos({ user }) {
 
 export async function getServerSideProps(context) {
   const { profile } = context.query
-  const res = await fetch(`http://localhost:3000/api/${profile}/assistidos`)
+  const res = await fetch(
+    `https://zine-space.vercel.app/api/${profile}/assistidos`
+  )
   const user = await res.json()
   return {
     props: { user }
