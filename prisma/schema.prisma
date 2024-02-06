@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -29,9 +26,8 @@ model Users {
   NaoRecomendados NaoRecomendados[]
   Notificacoes    Notificacoes[]
   Reviews         Reviews[]
-
-  seguidores Users[] @relation("UserFollows")
-  seguindo   Users[] @relation("UserFollows")
+  seguidores      Users[]           @relation("UserFollows")
+  seguindo        Users[]           @relation("UserFollows")
 }
 
 model Assistidos {
@@ -59,26 +55,78 @@ model QuerVer {
   idUser  Users[]
 }
 
-// Fazer por ultimo
 model Notificacoes {
   id         Int      @id @default(autoincrement())
-  idUser     Users[]
   idSeguidor Int
   createdAt  DateTime @default(now())
+  idUser     Users[]
 }
 
-// Limitar o tamanho do review
 model Reviews {
   id           Int        @id @default(autoincrement())
-  idUser       Users      @relation(fields: [usersId], references: [id], onDelete: Cascade)
   usersId      Int
   review       String
   nota         Float
-  idFilme      Assistidos @relation(fields: [assistidosId], references: [id])
   spoiler      Boolean
   assistidosId Int
   data         DateTime   @default(now())
+  idUser       Users      @relation(fields: [usersId], references: [id], onDelete: Cascade)
+  idFilme      Assistidos @relation(fields: [assistidosId], references: [id])
 
   @@index([usersId])
   @@index([assistidosId])
+}
+
+model AssistidosToUsers {
+  A Int
+  B Int
+
+  @@unique([A, B], map: "_AssistidosToUsers_AB_unique")
+  @@index([B], map: "_AssistidosToUsers_B_index")
+  @@map("_AssistidosToUsers")
+}
+
+model NaoRecomendadosToUsers {
+  A Int
+  B Int
+
+  @@unique([A, B], map: "_NaoRecomendadosToUsers_AB_unique")
+  @@index([B], map: "_NaoRecomendadosToUsers_B_index")
+  @@map("_NaoRecomendadosToUsers")
+}
+
+model NotificacoesToUsers {
+  A Int
+  B Int
+
+  @@unique([A, B], map: "_NotificacoesToUsers_AB_unique")
+  @@index([B], map: "_NotificacoesToUsers_B_index")
+  @@map("_NotificacoesToUsers")
+}
+
+model QuerVerToUsers {
+  A Int
+  B Int
+
+  @@unique([A, B], map: "_QuerVerToUsers_AB_unique")
+  @@index([B], map: "_QuerVerToUsers_B_index")
+  @@map("_QuerVerToUsers")
+}
+
+model RecomendadosToUsers {
+  A Int
+  B Int
+
+  @@unique([A, B], map: "_RecomendadosToUsers_AB_unique")
+  @@index([B], map: "_RecomendadosToUsers_B_index")
+  @@map("_RecomendadosToUsers")
+}
+
+model UserFollows {
+  A Int
+  B Int
+
+  @@unique([A, B], map: "_UserFollows_AB_unique")
+  @@index([B], map: "_UserFollows_B_index")
+  @@map("_UserFollows")
 }
