@@ -57,7 +57,7 @@ export default function Review({ dadosReview }) {
 export async function getServerSideProps(context) {
   const { profile, reviewId } = context.query
   const res = await fetch(
-    `http://localhost:3000/api/${profile}/review/${reviewId}`
+    `https://zine-space.vercel.app/api/${profile}/review/${reviewId}`
   )
   const dadosReview = await res.json()
 
