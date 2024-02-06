@@ -1,48 +1,11 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import { Navbar } from "components/Navbar"
 
 import styles from "styles/QuerVer.module.css"
 
-export default function querVer() {
-  const posters = [
-    {
-      id: 1,
-      link: "https://m.media-amazon.com/images/M/MV5BYTQ5OTkxNGEtZjZkMS00ZjBlLWE2OWYtM2ZkOTU3MjRlNzAxXkEyXkFqcGdeQXVyMTQzNTA5MzYz._V1_SX300.jpg"
-    },
-    {
-      id: 2,
-      link: "https://m.media-amazon.com/images/M/MV5BMzdjNjI5MmYtODhiNS00NTcyLWEzZmUtYzVmODM5YzExNDE3XkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_SX300.jpg"
-    },
-    {
-      id: 3,
-      link: "https://m.media-amazon.com/images/M/MV5BNDM2ODNiMWItOWRkNS00ODE3LWE2OGYtNTZkMDJkOWI1ODMxXkEyXkFqcGdeQXVyMjMxOTE0ODA@._V1_SX300.jpg"
-    },
-    {
-      id: 4,
-      link: "https://m.media-amazon.com/images/M/MV5BZjAyMGMwYTEtNDk4ZS00YmY0LThhZjUtOWI4ZjFmZmU4N2I3XkEyXkFqcGdeQXVyMTEyNzQ1MTk0._V1_SX300.jpg"
-    },
-    {
-      id: 5,
-      link: "https://m.media-amazon.com/images/M/MV5BNjRiMzM1N2UtMWE1ZC00MGMxLThkM2UtMGIyNWFiZWY3OGE4XkEyXkFqcGdeQXVyMTUzMzY2NDQy._V1_SX300.jpg"
-    },
-    {
-      id: 6,
-      link: "https://m.media-amazon.com/images/M/MV5BNGZhYWIyZWUtOTdjZS00ZTc1LWFlZDMtNzU5MTE0OTcyMjg1XkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg"
-    },
-    {
-      id: 7,
-      link: "https://m.media-amazon.com/images/M/MV5BZDQ4Njg4YTctNGZkYi00NWU1LWI4OTYtNmNjOWMyMjI1NWYzXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_SX300.jpg"
-    },
-    {
-      id: 8,
-      link: "https://m.media-amazon.com/images/M/MV5BZjY5MDFhZTgtOGVhMi00NTUzLTk5NjktNmRlMjI3NjI4MmE0XkEyXkFqcGdeQXVyMTMzNDExODE5._V1_SX300.jpg"
-    },
-    {
-      id: 9,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    }
-  ]
+export default function querVer({ user }) {
   return (
     <>
       <Navbar />
@@ -50,27 +13,38 @@ export default function querVer() {
         <div className={styles.topo}>
           <Image
             className={styles.foto}
-            src="/profilepic.jpg"
+            src={user.imagem}
             width={50}
             height="50"
             alt="Foto de perfil"
           />
-          <h2 className={styles.titulo}>Listas de quer ver de Roberta</h2>
+          <h2 className={styles.titulo}>{user.nome} Quer ver</h2>
         </div>
         <div className={styles.grid}>
           <div className={styles.posters}>
-            {posters.map((poster) => (
-              <Image
-                src={poster.link}
-                width={120}
-                height={168}
-                alt="Poster do filme"
-                key={poster.id}
-              />
+            {user.QuerVer.map((poster) => (
+              <Link key={poster.id} href={`/movie/${poster.idFilme}`}>
+                <Image
+                  src={poster.Poster}
+                  width={120}
+                  height={168}
+                  alt="Poster do filme"
+                  key={poster.id}
+                />
+              </Link>
             ))}
           </div>
         </div>
       </div>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const { profile } = context.query
+  const res = await fetch(`http://localhost:3000/api/${profile}/querVer`)
+  const user = await res.json()
+  return {
+    props: { user }
+  }
 }
