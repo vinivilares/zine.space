@@ -35,30 +35,22 @@ model Users {
 }
 
 model Assistidos {
-  id              Int               @id @default(autoincrement())
-  idFilme         String            @unique
-  idUser          Users[]
-  Reviews         Reviews[]
-  Recomendados    Recomendados[]
-  NaoRecomendados NaoRecomendados[]
+  id      Int       @id @default(autoincrement())
+  idFilme String    @unique
+  idUser  Users[]
+  Reviews Reviews[]
 }
 
 model Recomendados {
-  id           Int        @id @default(autoincrement())
-  idFilme      Assistidos @relation(fields: [assistidosId], references: [id])
-  idUser       Users[]
-  assistidosId Int
-
-  @@index([assistidosId])
+  id      Int     @id @default(autoincrement())
+  idFilme String  @unique
+  idUser  Users[]
 }
 
 model NaoRecomendados {
-  id           Int        @id @default(autoincrement())
-  idFilme      Assistidos @relation(fields: [assistidosId], references: [id])
-  idUser       Users[]
-  assistidosId Int
-
-  @@index([assistidosId])
+  id      Int     @id @default(autoincrement())
+  idFilme String  @unique
+  idUser  Users[]
 }
 
 model QuerVer {

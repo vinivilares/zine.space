@@ -11,96 +11,38 @@ import S from "styles/Profile.module.css"
 import InstagramIcon from "../../../icons/InstagramIcon"
 import TwitterIcon from "../../../icons/TwitterIcon"
 
-export default function Profile() {
+export default function Profile({ user }) {
   const router = useRouter()
   const { profile } = router.query
 
   const [follow, setFollow] = useState(false)
-
-  const posters = [
-    {
-      id: 1,
-      link: "https://m.media-amazon.com/images/M/MV5BYTQ5OTkxNGEtZjZkMS00ZjBlLWE2OWYtM2ZkOTU3MjRlNzAxXkEyXkFqcGdeQXVyMTQzNTA5MzYz._V1_SX300.jpg"
-    },
-    {
-      id: 2,
-      link: "https://m.media-amazon.com/images/M/MV5BMzdjNjI5MmYtODhiNS00NTcyLWEzZmUtYzVmODM5YzExNDE3XkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_SX300.jpg"
-    },
-    {
-      id: 3,
-      link: "https://m.media-amazon.com/images/M/MV5BNDM2ODNiMWItOWRkNS00ODE3LWE2OGYtNTZkMDJkOWI1ODMxXkEyXkFqcGdeQXVyMjMxOTE0ODA@._V1_SX300.jpg"
-    },
-    {
-      id: 4,
-      link: "https://m.media-amazon.com/images/M/MV5BZjAyMGMwYTEtNDk4ZS00YmY0LThhZjUtOWI4ZjFmZmU4N2I3XkEyXkFqcGdeQXVyMTEyNzQ1MTk0._V1_SX300.jpg"
-    },
-    {
-      id: 5,
-      link: "https://m.media-amazon.com/images/M/MV5BNjRiMzM1N2UtMWE1ZC00MGMxLThkM2UtMGIyNWFiZWY3OGE4XkEyXkFqcGdeQXVyMTUzMzY2NDQy._V1_SX300.jpg"
-    },
-    {
-      id: 6,
-      link: "https://m.media-amazon.com/images/M/MV5BNGZhYWIyZWUtOTdjZS00ZTc1LWFlZDMtNzU5MTE0OTcyMjg1XkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg"
-    },
-    {
-      id: 7,
-      link: "https://m.media-amazon.com/images/M/MV5BZDQ4Njg4YTctNGZkYi00NWU1LWI4OTYtNmNjOWMyMjI1NWYzXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_SX300.jpg"
-    },
-    {
-      id: 8,
-      link: "https://m.media-amazon.com/images/M/MV5BZjY5MDFhZTgtOGVhMi00NTUzLTk5NjktNmRlMjI3NjI4MmE0XkEyXkFqcGdeQXVyMTMzNDExODE5._V1_SX300.jpg"
-    },
-    {
-      id: 9,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    },
-    {
-      id: 10,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    },
-    {
-      id: 11,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    },
-    {
-      id: 12,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    },
-    {
-      id: 13,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    },
-    {
-      id: 14,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    },
-    {
-      id: 15,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    },
-    {
-      id: 16,
-      link: "https://m.media-amazon.com/images/M/MV5BODI2NjdlYWItMTE1ZC00YzI2LTlhZGQtNzE3NzA4MWM0ODYzXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg"
-    }
-  ]
 
   return (
     <>
       <Navbar />
       <div className={S.container}>
         <div className={S.userContainer}>
-          <Image
-            src={"/profilepic.jpg"}
-            width={100}
-            height={100}
-            alt="Profile Picture"
-          />
+          {user.imagem ? (
+            <Image
+              src={user.imagem}
+              width={100}
+              height={100}
+              alt="Profile Picture"
+            />
+          ) : (
+            <Image
+              src={"/profilepic.jpg"}
+              width={100}
+              height={100}
+              alt="Profile Picture"
+            />
+          )}
 
           <div className={S.userInfo}>
-            <h3>Roberta</h3>
+            <h3>{user.nome}</h3>
             <div className={S["follow-followers"]}>
-              <p>100k Seguindo</p>
-              <p>10k Seguidores</p>
+              <p>{user._count.seguindo} Seguindo</p>
+              <p>{user._count.seguidores} Seguidores</p>
             </div>
           </div>
         </div>
@@ -118,41 +60,50 @@ export default function Profile() {
             </button>
           )}
 
-          <InstagramIcon />
-          <TwitterIcon />
+          {user.instagram && (
+            <Link
+              href={`https://www.instagram.com/${user.instagram}`}
+              target="_blank"
+            >
+              <InstagramIcon />
+            </Link>
+          )}
+          {user.twitter && (
+            <Link
+              href={`https://www.twitter.com/${user.twitter}`}
+              target="_blank"
+            >
+              <TwitterIcon />
+            </Link>
+          )}
         </div>
 
         <div>
           <h4>Biografia</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-            doloremque cumque, numquam rem fugiat magni, perspiciatis, nulla
-            necessitatibus pariatur dicta distinctio laboriosam nobis ea dolores
-            rerum optio harum ad odio?
-          </p>
+          <p>{user.biografia}</p>
         </div>
 
         <div className={S.badges}>
           <div>
-            <p>Vistos</p>
-            <p>15</p>
+            <p>Assitidos</p>
+            <p>{user._count.Assistidos}</p>
           </div>
           <div>
-            <p>Indicados</p>
-            <p>15</p>
+            <p>Recomendados</p>
+            <p>{user._count.Recomendados}</p>
           </div>
           <div>
             <p>Reviews</p>
-            <p>15</p>
+            <p>{user._count.Reviews}</p>
           </div>
         </div>
 
         <div className={S.carouselContainer}>
           <h3>Assistidos</h3>
           <div className={S.carousel}>
-            {posters.slice(0, 15).map((poster) => (
+            {user.Assistidos.slice(0, 15).map((poster) => (
               <Image
-                src={poster.link}
+                src={poster.Poster}
                 width={120}
                 height={168}
                 alt="Poster do filme"
@@ -168,9 +119,9 @@ export default function Profile() {
         <div className={S.carouselContainer}>
           <h3>Recomendados</h3>
           <div className={S.carousel}>
-            {posters.slice(0, 15).map((poster) => (
+            {user.Recomendados.slice(0, 15).map((poster) => (
               <Image
-                src={poster.link}
+                src={poster.Poster}
                 width={120}
                 height={168}
                 alt="Poster do filme"
@@ -186,9 +137,9 @@ export default function Profile() {
         <div className={S.carouselContainer}>
           <h3>Quer Ver</h3>
           <div className={S.carousel}>
-            {posters.slice(0, 15).map((poster) => (
+            {user.QuerVer.slice(0, 15).map((poster) => (
               <Image
-                src={poster.link}
+                src={poster.Poster}
                 width={120}
                 height={168}
                 alt="Poster do filme"
@@ -203,4 +154,13 @@ export default function Profile() {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const { profile } = context.query
+  const res = await fetch(`https://zine-space.vercel.app/api/${profile}`)
+  const user = await res.json()
+  return {
+    props: { user }
+  }
 }
