@@ -8,10 +8,8 @@ export default NextAuth({
   session: {
     jwt: true
   },
-  secret: {
-    // eslint-disable-next-line no-undef
-    jwt: process.env.NEXTAUTH_SECRET
-  },
+  // eslint-disable-next-line no-undef
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
