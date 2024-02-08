@@ -1,112 +1,76 @@
+import { signIn, getSession } from "next-auth/react"
 import { useRouter } from "next/router"
 
-import { useEffect, useState } from "react"
+import { useRef, useState } from "react"
 
 import Input from "components/Input"
 
 import styles from "../styles/Home.module.css"
 
-import { auth, db } from "../../firebase"
 import EyeIcon from "../../icons/EyeIcon"
 import EyelconClosed from "../../icons/EyelconClosed"
-
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  sendEmailVerification,
-  signInWithEmailAndPassword
-} from "firebase/auth"
-import { doc, getDoc, setDoc } from "firebase/firestore"
+import { buscarUser } from "../../lib/prisma"
 
 export default function Login() {
+  const router = useRouter()
+
   const [containerLogin, setContainerLogin] = useState(true)
 
   const [visiblePassword, setVisiblePassword] = useState(false)
 
   const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(false)
 
-  const [login, setLogin] = useState({ email: undefined, password: undefined })
-  const [register, setRegister] = useState({
-    email: undefined,
-    password: undefined,
-    confirmPassowrd: undefined,
-    nickname: undefined,
-    name: undefined
-  })
+  const nicknameInputRef = useRef()
+  const nomeInputRef = useRef()
+  const dataInputRef = useRef()
+  const emailInputRef = useRef()
+  const passwordInputRef = useRef()
+  const repeatPasswordInputRef = useRef()
 
-  // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState({})
-  const router = useRouter()
+  async function loginHandler(event) {
+    event.preventDefault()
+    const enteredEmail = emailInputRef.current.value
+    const enteredPassword = passwordInputRef.current.value
 
-  // Verificar se esta logado
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser)
-
-      if (currentUser) {
-        router.push("/feed")
-      }
-
-      console.log(currentUser)
-    })
-  }, [router])
-
-  //função que faz login
-  async function handleLogin() {
     try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        login.email,
-        login.password
-      )
-      console.log(user)
+      // eslint-disable-next-line no-unused-vars
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: enteredEmail,
+        password: enteredPassword
+      })
     } catch (error) {
       alert(error.message)
     }
+
+    await router.push("/feed")
   }
 
-  // Função que cria conta com email e senha
-  const handleSignup = async () => {
-    const docRef = doc(db, "users", register.nickname)
-    const docSnap = await getDoc(docRef)
-    const nickname = docSnap
+  async function submitHandler(event) {
+    event.preventDefault()
 
-    console.log(nickname.id.toUpperCase())
+    const enteredNickname = nicknameInputRef.current.value
+    const enteredNome = nomeInputRef.current.value
+    const enteredData = dataInputRef.current.value
+    const enteredEmail = emailInputRef.current.value
+    const enteredPassword = passwordInputRef.current.value
+    const enteredRepeatPassword = repeatPasswordInputRef.current.value
 
-    // verifica se as senhas são iguais e se já existe o usuario com nickname
     try {
-      if (register.password !== register.confirmPassowrd) {
-        throw new Error("As senhas não são correspondentes")
-      }
-
-      if (docSnap.exists()) {
-        throw new Error("Nickname já utilizado")
-      }
-
-      if (nickname.id.toUpperCase() == register.nickname) {
-        throw new Error("Usuario ja utilizado")
-      }
-
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        register.email,
-        register.password
+      // eslint-disable-next-line no-unused-vars
+      const result = await createUser(
+        enteredNickname,
+        enteredNome,
+        enteredData,
+        enteredEmail,
+        enteredPassword,
+        enteredRepeatPassword
       )
-
-      await sendEmailVerification(user)
-
-      await setDoc(doc(db, "users", register.nickname), {
-        uid: user.uid,
-        email: user.email,
-        nome: register.name
-      })
-
-      router.push("/feed")
-
-      alert("Verifique seu email para confirmar sua conta")
     } catch (error) {
-      alert("Não foi possivel criar a conta - " + error.message)
+      alert(error.message)
     }
+    alert("Usuário criado, faça login para acessar")
+    setContainerLogin(true)
   }
 
   function showPassword(idPassword) {
@@ -151,9 +115,7 @@ export default function Login() {
               id={"email"}
               placeholder={"Email"}
               type="text"
-              onChange={(event) => {
-                setLogin({ ...login, email: event.target.value })
-              }}
+              ref={emailInputRef}
             />
             <div className={styles.inputPassword}>
               <Input
@@ -161,9 +123,7 @@ export default function Login() {
                 placeholder={"Password"}
                 type="password"
                 name="password"
-                onChange={(event) => {
-                  setLogin({ ...login, password: event.target.value })
-                }}
+                ref={passwordInputRef}
               />
               <button
                 className={styles.showPasswordIcon}
@@ -175,17 +135,32 @@ export default function Login() {
                 {visiblePassword && <EyelconClosed />}
               </button>
             </div>
-            <button className={styles.button} onClick={handleLogin}>
+            <button className={styles.button} onClick={loginHandler}>
               Login
             </button>
           </div>
 
-          <p className={styles.p}>Forgot password?</p>
+          <p className={styles.p}>Forgot password ?</p>
 
           <div className={styles.loginWith}>
-            <button className={styles.button}>Login with Google</button>
-            <button className={styles.button}>Login with Facebook</button>
-            <button className={styles.button}>Login with Apple</button>
+            <button
+              className={styles.button}
+              onClick={() => alert("Estamos trabalhando nisso")}
+            >
+              Login with Google
+            </button>
+            <button
+              className={styles.button}
+              onClick={() => alert("Estamos trabalhando nisso")}
+            >
+              Login with Facebook
+            </button>
+            <button
+              className={styles.button}
+              onClick={() => alert("Estamos trabalhando nisso")}
+            >
+              Login with Apple
+            </button>
           </div>
           <p className={styles.p}>
             Don&#x27;t have an account.{" "}
@@ -208,36 +183,28 @@ export default function Login() {
             id={"nickname"}
             placeholder={"Nickname"}
             type="text"
-            onChange={() =>
-              setRegister({ ...register, nickname: event.target.value })
-            }
+            ref={nicknameInputRef}
           />
 
           <Input
             id={"name"}
             placeholder={"Name"}
             type="text"
-            onChange={() =>
-              setRegister({ ...register, name: event.target.value })
-            }
+            ref={nomeInputRef}
           />
 
           <Input
             id={"birthday"}
             // placeholder={"Birthday"}
             type="date"
-            onChange={() =>
-              setRegister({ ...register, lastname: event.target.value })
-            }
+            ref={dataInputRef}
           />
 
           <Input
             id={"email"}
             placeholder={"Email"}
             type="text"
-            onChange={() =>
-              setRegister({ ...register, email: event.target.value })
-            }
+            ref={emailInputRef}
           />
 
           <div className={styles.inputPassword}>
@@ -246,9 +213,7 @@ export default function Login() {
               placeholder={"Password"}
               type="password"
               name="password"
-              onChange={() =>
-                setRegister({ ...register, password: event.target.value })
-              }
+              ref={passwordInputRef}
             />
             <button
               className={styles.showPasswordIcon}
@@ -267,12 +232,7 @@ export default function Login() {
               placeholder={"Repeat password"}
               type="password"
               name="repeatPassword"
-              onChange={() =>
-                setRegister({
-                  ...register,
-                  confirmPassowrd: event.target.value
-                })
-              }
+              ref={repeatPasswordInputRef}
             />
             <button
               className={styles.showPasswordIcon}
@@ -285,7 +245,7 @@ export default function Login() {
             </button>
           </div>
 
-          <button className={styles.button} onClick={handleSignup}>
+          <button className={styles.button} onClick={submitHandler}>
             Create account
           </button>
           <p className={styles.p}>
@@ -305,4 +265,56 @@ export default function Login() {
       )}
     </div>
   )
+}
+
+async function createUser(
+  nickname,
+  nome,
+  dt_nascimento,
+  email,
+  password,
+  repeatPassowrd
+) {
+  const response = await fetch("/api/auth/signup", {
+    method: "POST",
+    body: JSON.stringify({
+      nickname,
+      nome,
+      dt_nascimento,
+      email,
+      password,
+      repeatPassowrd
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data.message || "Algo deu errado!")
+  }
+
+  return data
+}
+
+export async function getServerSideProps(context) {
+  const userSession = await getSession(context)
+
+  if (userSession) {
+    // eslint-disable-next-line no-unused-vars
+    const user = await buscarUser(userSession.user.email)
+    return {
+      redirect: {
+        destination: "/feed"
+      }
+    }
+  }
+
+  return {
+    props: {
+      userSession
+    }
+  }
 }

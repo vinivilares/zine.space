@@ -1,28 +1,11 @@
+import { signOut } from "next-auth/react"
 import Link from "next/link"
-import { useRouter } from "next/router"
 
 import S from "./settingsMenu.module.css"
 
-import { auth } from "../../../firebase"
 import ArrowBack from "../../../icons/ArrowBack"
 
-import { signOut } from "firebase/auth"
-
 export default function SettingsMenu({ id, onClick }) {
-  const router = useRouter()
-
-  function handleSignOut() {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        router.push("/")
-      })
-      .catch((error) => {
-        // An error happened.
-        console.log(error.message)
-      })
-  }
-
   return (
     <nav id={id} className={S.menu}>
       <ul>
@@ -41,7 +24,7 @@ export default function SettingsMenu({ id, onClick }) {
             <h2>Sobre</h2>
           </Link>
         </li>
-        <li onClick={handleSignOut}>
+        <li onClick={signOut}>
           <h2>Sair</h2>
         </li>
 
