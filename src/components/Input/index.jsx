@@ -1,16 +1,21 @@
+import { forwardRef } from "react"
+
 import S from "./input.module.css"
 
-export default function Input({ type, id, onChange, name, placeholder }) {
+// eslint-disable-next-line react/display-name
+const Input = forwardRef(({ type, id, name, placeholder }, ref) => {
   return (
     <input
       className={S.input}
       type={type}
       id={id}
       required
-      onChange={onChange}
       autoComplete={"off"}
       name={name}
       placeholder={placeholder}
+      ref={ref}
     />
   )
-}
+})
+
+export default Input

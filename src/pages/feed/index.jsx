@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -10,6 +11,7 @@ import ReviewUserInfo from "components/ReviewUserInfo"
 import S from "styles/Feed.module.css"
 
 export default function Feed() {
+  // signOut()
   return (
     <>
       <Navbar />
@@ -156,4 +158,20 @@ export default function Feed() {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const userSession = await getSession(context)
+
+  if (!userSession) {
+    return {
+      redirect: {
+        destination: "/"
+      }
+    }
+  } else {
+    return {
+      props: { userSession }
+    }
+  }
 }
