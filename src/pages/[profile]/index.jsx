@@ -1,8 +1,7 @@
+import { getSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
-
-import { useState } from "react"
 
 import { Navbar } from "components/Navbar"
 
@@ -10,12 +9,33 @@ import S from "styles/Profile.module.css"
 
 import InstagramIcon from "../../../icons/InstagramIcon"
 import TwitterIcon from "../../../icons/TwitterIcon"
+import { buscarUser } from "../../../lib/prisma"
 
-export default function Profile({ user }) {
+import { PrismaClient } from "@prisma/client"
+
+export default function Profile({
+  user,
+  usuarioLogado,
+  estaSeguindo,
+  followButton
+}) {
   const router = useRouter()
   const { profile } = router.query
 
-  const [follow, setFollow] = useState(false)
+  async function followHandler() {
+    const response = await fetch(`/api/${user.nickname}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        usuarioLogado: usuarioLogado.email
+      }),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+    const data = await response.json()
+    await router.reload()
+    return data
+  }
 
   return (
     <>
@@ -48,14 +68,14 @@ export default function Profile({ user }) {
         </div>
 
         <div className={S.socialMedia}>
-          {!follow && (
-            <button className={S.button} onClick={() => setFollow(!follow)}>
+          {!estaSeguindo && !followButton && (
+            <button className={S.button} onClick={followHandler}>
               Seguir
             </button>
           )}
 
-          {follow && (
-            <button className={S.button} onClick={() => setFollow(!follow)}>
+          {estaSeguindo && !followButton && (
+            <button className={S.button} onClick={followHandler}>
               Seguindo
             </button>
           )}
@@ -158,8 +178,35 @@ export default function Profile({ user }) {
 
 export async function getServerSideProps(context) {
   const { profile } = context.query
-  const res = await fetch(`https://zine-space.vercel.app/api/${profile}`)
+  const prisma = new PrismaClient()
+  const userSessions = await getSession(context)
+  //const res = await fetch(`https://zine-space.vercel.app/api/${profile}`)
+  const res = await fetch(`http://localhost:3000/api/${profile}`)
   const user = await res.json()
+
+  if (userSessions) {
+    const idDoUsuario = await buscarUser(user.email)
+    const idDoSeguidor = await buscarUser(userSessions.user.email)
+    const estaSeguindo = await prisma.users.findFirst({
+      where: {
+        id: idDoUsuario.id,
+        seguidores: {
+          some: { id: idDoSeguidor.id }
+        }
+      }
+    })
+    return {
+      props: {
+        user,
+        usuarioLogado: {
+          email: userSessions.user.email,
+          nickname: idDoSeguidor.nickname
+        },
+        estaSeguindo: JSON.parse(JSON.stringify(estaSeguindo)),
+        followButton: idDoUsuario.id === idDoSeguidor.id ? true : false
+      }
+    }
+  }
   return {
     props: { user }
   }
