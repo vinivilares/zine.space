@@ -1,4 +1,5 @@
 import { getSession } from "next-auth/react"
+import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -9,9 +10,9 @@ import S from "styles/Profile.module.css"
 
 import InstagramIcon from "../../../icons/InstagramIcon"
 import TwitterIcon from "../../../icons/TwitterIcon"
-import { buscarUser } from "../../../lib/prisma"
+import { buscarUser, prisma } from "../../../lib/prisma"
 
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
 
 export default function Profile({
   user,
@@ -39,6 +40,9 @@ export default function Profile({
 
   return (
     <>
+      <Head>
+        <title>Zine - {user.nome}</title>
+      </Head>
       <Navbar />
       <div className={S.container}>
         <div className={S.userContainer}>
@@ -48,6 +52,7 @@ export default function Profile({
               width={100}
               height={100}
               alt="Profile Picture"
+              priority
             />
           ) : (
             <Image
@@ -55,6 +60,7 @@ export default function Profile({
               width={100}
               height={100}
               alt="Profile Picture"
+              priority
             />
           )}
 
@@ -118,59 +124,89 @@ export default function Profile({
           </div>
         </div>
 
-        <div className={S.carouselContainer}>
-          <h3>Assistidos</h3>
-          <div className={S.carousel}>
-            {user.Assistidos.slice(0, 15).map((poster) => (
-              <Image
-                src={poster.Poster}
-                width={120}
-                height={168}
-                alt="Poster do filme"
-                key={poster.id}
-              />
-            ))}
-            <Link className={S.verMais} href={`/${profile}/assistidos`}>
-              Ver mais
-            </Link>
+        {user.Assistidos.length > 0 && (
+          <div className={S.carouselContainer}>
+            <h3>Assistidos</h3>
+            <div className={S.carousel}>
+              {user.Assistidos.slice(0, 15).map((poster) => (
+                <Image
+                  src={poster.Poster}
+                  width={120}
+                  height={168}
+                  alt="Poster do filme"
+                  key={poster.id}
+                  priority
+                />
+              ))}
+              <Link className={S.verMais} href={`/${profile}/assistidos`}>
+                Ver mais
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className={S.carouselContainer}>
-          <h3>Recomendados</h3>
-          <div className={S.carousel}>
-            {user.Recomendados.slice(0, 15).map((poster) => (
-              <Image
-                src={poster.Poster}
-                width={120}
-                height={168}
-                alt="Poster do filme"
-                key={poster.id}
-              />
-            ))}
-            <Link className={S.verMais} href={`/${profile}/recomendados`}>
-              Ver mais
-            </Link>
+        {user.QuerVer.length > 0 && (
+          <div className={S.carouselContainer}>
+            <h3>Quer ver</h3>
+            <div className={S.carousel}>
+              {user.QuerVer.slice(0, 15).map((poster) => (
+                <Image
+                  src={poster.Poster}
+                  width={120}
+                  height={168}
+                  alt="Poster do filme"
+                  key={poster.id}
+                  priority
+                />
+              ))}
+              <Link className={S.verMais} href={`/${profile}/querVer`}>
+                Ver mais
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className={S.carouselContainer}>
-          <h3>Quer Ver</h3>
-          <div className={S.carousel}>
-            {user.QuerVer.slice(0, 15).map((poster) => (
-              <Image
-                src={poster.Poster}
-                width={120}
-                height={168}
-                alt="Poster do filme"
-                key={poster.id}
-              />
-            ))}
-            <Link className={S.verMais} href={`/${profile}/querVer`}>
-              Ver mais
-            </Link>
+        {user.Recomendados.length > 0 && (
+          <div className={S.carouselContainer}>
+            <h3>Recomendados</h3>
+            <div className={S.carousel}>
+              {user.Recomendados.slice(0, 15).map((poster) => (
+                <Image
+                  src={poster.Poster}
+                  width={120}
+                  height={168}
+                  alt="Poster do filme"
+                  key={poster.id}
+                  priority
+                />
+              ))}
+              <Link className={S.verMais} href={`/${profile}/recomendados`}>
+                Ver mais
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
+
+        {user.NaoRecomendados.length > 0 && (
+          <div className={S.carouselContainer}>
+            <h3>Não recomendados</h3>
+            <div className={S.carousel}>
+              {user.NaoRecomendados.slice(0, 15).map((poster) => (
+                <Image
+                  src={poster.Poster}
+                  width={120}
+                  height={168}
+                  alt="Poster do filme"
+                  key={poster.id}
+                  priority
+                />
+              ))}
+              <Link className={S.verMais} href={`/${profile}/naoRecomendados`}>
+                Ver mais
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )
@@ -178,7 +214,7 @@ export default function Profile({
 
 export async function getServerSideProps(context) {
   const { profile } = context.query
-  const prisma = new PrismaClient()
+  // const prisma = new PrismaClient()
   const userSessions = await getSession(context)
   const res = await fetch(`https://zine-space.vercel.app/api/${profile}`)
 

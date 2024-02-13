@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
+
+import { prisma } from "../../../../lib/prisma"
 
 export default async function handler(req, res) {
-  const prisma = new PrismaClient()
+  // const prisma = new PrismaClient()
   const { profile } = req.query
 
   if (req.method !== "GET") {

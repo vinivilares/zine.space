@@ -6,19 +6,28 @@ import { Navbar } from "components/Navbar"
 import styles from "styles/Assistidos.module.css"
 
 export default function Assistidos({ user }) {
-  console.log(user.Assistidos[0].idFilme)
   return (
     <>
       <Navbar />
       <div className={styles.container}>
         <div className={styles.topo}>
-          <Image
-            className={styles.foto}
-            src={user.imagem}
-            width={50}
-            height="50"
-            alt="Foto de perfil"
-          />
+          {user.imagem ? (
+            <Image
+              className={styles.foto}
+              src={user.imagem}
+              width={50}
+              height="50"
+              alt="Foto de perfil"
+            />
+          ) : (
+            <Image
+              className={styles.foto}
+              src="/profilepic.jpg"
+              width={50}
+              height="50"
+              alt="Foto de perfil"
+            />
+          )}
           <h2 className={styles.titulo}>{user.nome} Assistiu</h2>
         </div>
         <div className={styles.grid}>

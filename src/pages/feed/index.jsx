@@ -1,4 +1,5 @@
 import { getSession } from "next-auth/react"
+import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -14,6 +15,9 @@ export default function Feed() {
   // signOut()
   return (
     <>
+      <Head>
+        <title>Zine - Feed</title>
+      </Head>
       <Navbar />
       <div className={S.container}>
         <div className={S.feedItem}>

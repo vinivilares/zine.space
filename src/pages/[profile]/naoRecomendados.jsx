@@ -28,11 +28,11 @@ export default function Recomendados({ user }) {
               alt="Foto de perfil"
             />
           )}
-          <h2 className={styles.titulo}>{user.nome} Recomenda</h2>
+          <h2 className={styles.titulo}>{user.nome} Não recomenda</h2>
         </div>
         <div className={styles.grid}>
           <div className={styles.posters}>
-            {user.Recomendados.map((poster) => (
+            {user.NaoRecomendados.map((poster) => (
               <Link key={poster.id} href={`/movie/${poster.idFilme}`}>
                 <Image
                   src={poster.Poster}
@@ -53,7 +53,7 @@ export default function Recomendados({ user }) {
 export async function getServerSideProps(context) {
   const { profile } = context.query
   const res = await fetch(
-    `https://zine-space.vercel.app/api/${profile}/recomendados`
+    `https://zine-space.vercel.app/api/${profile}/naoRecomendados`
   )
   const user = await res.json()
   return {

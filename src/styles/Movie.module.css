@@ -28,7 +28,7 @@
 .button {
   background-color: var(--main-color);
 
-  margin-block: 1rem;
+  margin-top: 1rem;
 
   width: 100%;
   padding: 0.5rem;
@@ -37,6 +37,42 @@
   border-radius: 0.5rem;
 
   cursor: pointer;
+}
+
+.querVer {
+  background-color: var(--main-color);
+
+  margin-top: 1rem;
+
+  width: 100%;
+  padding: 0.5rem;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  cursor: pointer;
+}
+
+.lista {
+  display: none;
+}
+
+.buttonList {
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem;
+  background-color: var(--main-color);
+  width: 100%;
+}
+
+.lista > li {
+  cursor: pointer;
+  margin-block: 1px;
+  border-radius: 0.5rem;
+}
+
+.lista li > button {
+  border-radius: 0.5rem;
 }
 
 .friends {
@@ -50,32 +86,28 @@
   display: flex;
   align-items: center;
 
-  border-radius: .5rem;
-  padding: .5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 
   margin-block: 1rem;
- 
 }
 
-.friends>li:last-child{
+.friends > li:last-child {
   background: none;
   color: var(--main-color);
   justify-content: center;
 }
 
-.friends > li > img {
+.friends li > img {
   width: 50px;
   height: 50px;
 
   margin-right: 1rem;
 }
 
-.sinopse{
+.sinopse {
   margin-block: 1rem;
 }
-
-
-
 
 @media (min-width: 1025px) {
   .container {
@@ -92,14 +124,25 @@
     width: 15rem;
   }
 
+  .querVer {
+    padding: 1rem;
+    width: 7rem;
+    margin-right: 1rem;
+  }
+
+  .buttonList {
+    padding: 1rem;
+    width: 15rem;
+  }
+
   .friends {
     color: var(--main-color);
     display: flex;
     padding-block: 1rem;
     align-items: center;
   }
-  
-  .friends > li {
+
+  .friends li {
     background-color: transparent;
     display: flex;
     flex-direction: column;
@@ -110,7 +153,7 @@
     margin-block: 0;
   }
 
-  .friends > li > img {
+  .friends li > img {
     border-radius: 50%;
 
     margin-right: 0;
