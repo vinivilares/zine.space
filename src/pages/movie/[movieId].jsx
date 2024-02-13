@@ -27,15 +27,18 @@ export async function getServerSideProps(context) {
   const idDoUsuario = await buscarUser(userSession.user.email)
 
   if (userSession) {
-    const usuario = await fetch(`/api/movie/${movie.imdbID}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify({
-        usuarioLogado: userSession.user.email
-      })
-    })
+    const usuario = await fetch(
+      `https://zine-space.vercel.app/api/movie/${movie.imdbID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          usuarioLogado: userSession.user.email
+        })
+      }
+    )
 
     const user = await usuario.json()
 
