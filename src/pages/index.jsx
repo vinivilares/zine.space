@@ -1,4 +1,5 @@
 import { signIn, getSession } from "next-auth/react"
+import Head from "next/head"
 import { useRouter } from "next/router"
 
 import { useRef, useState } from "react"
@@ -97,26 +98,120 @@ export default function Login() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.info}>
-        <h1>Zine</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque
-          tempora odio corporis ratione mollitia repellat voluptate culpa vel
-          unde qui, incidunt reprehenderit nulla assumenda enim, excepturi
-          temporibus, dolor ut deleniti!
-        </p>
-      </div>
+    <>
+      <Head>
+        <title>Zine - Login</title>
+      </Head>
+      <div className={styles.container}>
+        <div className={styles.info}>
+          <h1>Zine</h1>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque
+            tempora odio corporis ratione mollitia repellat voluptate culpa vel
+            unde qui, incidunt reprehenderit nulla assumenda enim, excepturi
+            temporibus, dolor ut deleniti!
+          </p>
+        </div>
 
-      {containerLogin && (
-        <div className={styles.login}>
-          <div>
+        {containerLogin && (
+          <div className={styles.login}>
+            <div>
+              <Input
+                id={"email"}
+                placeholder={"Email"}
+                type="text"
+                ref={emailInputRef}
+              />
+              <div className={styles.inputPassword}>
+                <Input
+                  id={"password"}
+                  placeholder={"Password"}
+                  type="password"
+                  name="password"
+                  ref={passwordInputRef}
+                />
+                <button
+                  className={styles.showPasswordIcon}
+                  onClick={() => {
+                    showPassword("password")
+                  }}
+                >
+                  {!visiblePassword && <EyeIcon />}
+                  {visiblePassword && <EyelconClosed />}
+                </button>
+              </div>
+              <button className={styles.button} onClick={loginHandler}>
+                Login
+              </button>
+            </div>
+
+            <p className={styles.p}>Forgot password ?</p>
+
+            <div className={styles.loginWith}>
+              <button
+                className={styles.button}
+                onClick={() => alert("Estamos trabalhando nisso")}
+              >
+                Login with Google
+              </button>
+              <button
+                className={styles.button}
+                onClick={() => alert("Estamos trabalhando nisso")}
+              >
+                Login with Facebook
+              </button>
+              <button
+                className={styles.button}
+                onClick={() => alert("Estamos trabalhando nisso")}
+              >
+                Login with Apple
+              </button>
+            </div>
+            <p className={styles.p}>
+              Don&#x27;t have an account.{" "}
+              <span
+                className={styles.span}
+                onClick={() => {
+                  setContainerLogin(false)
+                  setVisiblePassword(false)
+                }}
+              >
+                Sign up
+              </span>
+            </p>
+          </div>
+        )}
+
+        {!containerLogin && (
+          <div className={styles.createAccount}>
+            <Input
+              id={"nickname"}
+              placeholder={"Nickname"}
+              type="text"
+              ref={nicknameInputRef}
+            />
+
+            <Input
+              id={"name"}
+              placeholder={"Name"}
+              type="text"
+              ref={nomeInputRef}
+            />
+
+            <Input
+              id={"birthday"}
+              // placeholder={"Birthday"}
+              type="date"
+              ref={dataInputRef}
+            />
+
             <Input
               id={"email"}
               placeholder={"Email"}
               type="text"
               ref={emailInputRef}
             />
+
             <div className={styles.inputPassword}>
               <Input
                 id={"password"}
@@ -135,135 +230,46 @@ export default function Login() {
                 {visiblePassword && <EyelconClosed />}
               </button>
             </div>
-            <button className={styles.button} onClick={loginHandler}>
-              Login
+
+            <div className={styles.inputPassword}>
+              <Input
+                id={"repeatPassword"}
+                placeholder={"Repeat password"}
+                type="password"
+                name="repeatPassword"
+                ref={repeatPasswordInputRef}
+              />
+              <button
+                className={styles.showPasswordIcon}
+                onClick={() => {
+                  showPassword("repeatPassword")
+                }}
+              >
+                {!visibleRepeatPassword && <EyeIcon />}
+                {visibleRepeatPassword && <EyelconClosed />}
+              </button>
+            </div>
+
+            <button className={styles.button} onClick={submitHandler}>
+              Create account
             </button>
+            <p className={styles.p}>
+              Already have an account.{" "}
+              <span
+                className={styles.span}
+                onClick={() => {
+                  setContainerLogin(true)
+                  setVisiblePassword(false)
+                  setVisibleRepeatPassword(false)
+                }}
+              >
+                Login
+              </span>
+            </p>
           </div>
-
-          <p className={styles.p}>Forgot password ?</p>
-
-          <div className={styles.loginWith}>
-            <button
-              className={styles.button}
-              onClick={() => alert("Estamos trabalhando nisso")}
-            >
-              Login with Google
-            </button>
-            <button
-              className={styles.button}
-              onClick={() => alert("Estamos trabalhando nisso")}
-            >
-              Login with Facebook
-            </button>
-            <button
-              className={styles.button}
-              onClick={() => alert("Estamos trabalhando nisso")}
-            >
-              Login with Apple
-            </button>
-          </div>
-          <p className={styles.p}>
-            Don&#x27;t have an account.{" "}
-            <span
-              className={styles.span}
-              onClick={() => {
-                setContainerLogin(false)
-                setVisiblePassword(false)
-              }}
-            >
-              Sign up
-            </span>
-          </p>
-        </div>
-      )}
-
-      {!containerLogin && (
-        <div className={styles.createAccount}>
-          <Input
-            id={"nickname"}
-            placeholder={"Nickname"}
-            type="text"
-            ref={nicknameInputRef}
-          />
-
-          <Input
-            id={"name"}
-            placeholder={"Name"}
-            type="text"
-            ref={nomeInputRef}
-          />
-
-          <Input
-            id={"birthday"}
-            // placeholder={"Birthday"}
-            type="date"
-            ref={dataInputRef}
-          />
-
-          <Input
-            id={"email"}
-            placeholder={"Email"}
-            type="text"
-            ref={emailInputRef}
-          />
-
-          <div className={styles.inputPassword}>
-            <Input
-              id={"password"}
-              placeholder={"Password"}
-              type="password"
-              name="password"
-              ref={passwordInputRef}
-            />
-            <button
-              className={styles.showPasswordIcon}
-              onClick={() => {
-                showPassword("password")
-              }}
-            >
-              {!visiblePassword && <EyeIcon />}
-              {visiblePassword && <EyelconClosed />}
-            </button>
-          </div>
-
-          <div className={styles.inputPassword}>
-            <Input
-              id={"repeatPassword"}
-              placeholder={"Repeat password"}
-              type="password"
-              name="repeatPassword"
-              ref={repeatPasswordInputRef}
-            />
-            <button
-              className={styles.showPasswordIcon}
-              onClick={() => {
-                showPassword("repeatPassword")
-              }}
-            >
-              {!visibleRepeatPassword && <EyeIcon />}
-              {visibleRepeatPassword && <EyelconClosed />}
-            </button>
-          </div>
-
-          <button className={styles.button} onClick={submitHandler}>
-            Create account
-          </button>
-          <p className={styles.p}>
-            Already have an account.{" "}
-            <span
-              className={styles.span}
-              onClick={() => {
-                setContainerLogin(true)
-                setVisiblePassword(false)
-                setVisibleRepeatPassword(false)
-              }}
-            >
-              Login
-            </span>
-          </p>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   )
 }
 

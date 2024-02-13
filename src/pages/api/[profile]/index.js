@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
+
+import { prisma } from "../../../../lib/prisma"
 
 export default async function handler(req, res) {
-  const prisma = new PrismaClient()
+  // const prisma = new PrismaClient()
   const { profile } = req.query
   const { usuarioLogado } = req.body
 
@@ -24,6 +26,7 @@ export default async function handler(req, res) {
         twitter: true,
         Assistidos: true,
         Recomendados: true,
+        NaoRecomendados: true,
         QuerVer: true,
         Notificacoes: true,
         Reviews: true,
@@ -44,6 +47,15 @@ export default async function handler(req, res) {
     )
     await Promise.all(
       user.Recomendados.slice(0, 15).map(async (filme) => {
+        const res = await fetch(
+          `http://www.omdbapi.com/?i=${filme.idFilme}&apikey=${process.env.NEXT_PUBLIC_OMDBAPIKEY}`
+        )
+        const data = await res.json()
+        filme.Poster = data.Poster
+      })
+    )
+    await Promise.all(
+      user.NaoRecomendados.slice(0, 15).map(async (filme) => {
         const res = await fetch(
           `http://www.omdbapi.com/?i=${filme.idFilme}&apikey=${process.env.NEXT_PUBLIC_OMDBAPIKEY}`
         )

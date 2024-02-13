@@ -1,3 +1,4 @@
+import Head from "next/head"
 import Link from "next/link"
 
 import { Navbar } from "components/Navbar"
@@ -7,6 +8,9 @@ import S from "styles/Sobre.module.css"
 export default function Sobre() {
   return (
     <>
+      <Head>
+        <title>Zine - Sobre</title>
+      </Head>
       <Navbar />
       <div className={S.container}>
         <div className={S.sobre}>

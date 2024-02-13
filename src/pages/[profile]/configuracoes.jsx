@@ -1,3 +1,4 @@
+import Head from "next/head"
 import Image from "next/image"
 
 import { useState } from "react"
@@ -40,6 +41,9 @@ export default function Configuracoes() {
 
   return (
     <>
+      <Head>
+        <title>Zine - Configurações</title>
+      </Head>
       <Navbar />
       <div className={styles.container}>
         <div className={styles.image}>

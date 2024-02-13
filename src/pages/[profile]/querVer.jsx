@@ -1,3 +1,4 @@
+import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -8,16 +9,29 @@ import styles from "styles/QuerVer.module.css"
 export default function querVer({ user }) {
   return (
     <>
+      <Head>
+        <title>Zine - </title>
+      </Head>
       <Navbar />
       <div>
         <div className={styles.topo}>
-          <Image
-            className={styles.foto}
-            src={user.imagem}
-            width={50}
-            height="50"
-            alt="Foto de perfil"
-          />
+          {user.imagem ? (
+            <Image
+              className={styles.foto}
+              src={user.imagem}
+              width={50}
+              height="50"
+              alt="Foto de perfil"
+            />
+          ) : (
+            <Image
+              className={styles.foto}
+              src="/profilepic.jpg"
+              width={50}
+              height="50"
+              alt="Foto de perfil"
+            />
+          )}
           <h2 className={styles.titulo}>{user.nome} Quer ver</h2>
         </div>
         <div className={styles.grid}>

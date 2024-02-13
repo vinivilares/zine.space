@@ -13,11 +13,11 @@ export default async function handler(req, res) {
 
   const user = await prisma.users.findUnique({
     where: { nickname: profile },
-    select: { Recomendados: true, imagem: true, nome: true }
+    select: { NaoRecomendados: true, imagem: true, nome: true }
   })
 
   await Promise.all(
-    user.Recomendados.map(async (filme) => {
+    user.NaoRecomendados.map(async (filme) => {
       const res = await fetch(
         `http://www.omdbapi.com/?i=${filme.idFilme}&apikey=${process.env.NEXT_PUBLIC_OMDBAPIKEY}`
       )

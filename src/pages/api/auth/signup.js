@@ -1,9 +1,10 @@
 import { hashPassword } from "../../../../lib/auth"
+import { prisma } from "../../../../lib/prisma"
 
-import { PrismaClient } from "@prisma/client"
+// import { PrismaClient } from "@prisma/client"
 
 export default async function handler(req, res) {
-  const prisma = new PrismaClient()
+  // const prisma = new PrismaClient()
   if (req.method === "POST") {
     const data = req.body
     const { nickname, nome, dt_nascimento, email, password, repeatPassowrd } =
