@@ -70,6 +70,7 @@ export default async function handler(req, res) {
 
       if (assistiu) {
         // Se já assistiu remove dos assistidos
+        // eslint-disable-next-line no-unused-vars
         const filme = await prisma.assistidos.update({
           where: { idFilme: movie },
           data: {
@@ -88,6 +89,7 @@ export default async function handler(req, res) {
           }
         })
         if (querVer) {
+          // eslint-disable-next-line no-unused-vars
           const filme = await prisma.querVer.update({
             where: { idFilme: movie },
             data: {
@@ -100,6 +102,7 @@ export default async function handler(req, res) {
           })
         }
 
+        // eslint-disable-next-line no-unused-vars
         const filme = await prisma.assistidos.upsert({
           where: { idFilme: movie },
           update: {
@@ -125,6 +128,7 @@ export default async function handler(req, res) {
         }
       })
       if (querVer) {
+        // eslint-disable-next-line no-unused-vars
         const filme = await prisma.querVer.update({
           where: { idFilme: movie },
           data: {
@@ -136,6 +140,7 @@ export default async function handler(req, res) {
           }
         })
       } else {
+        // eslint-disable-next-line no-unused-vars
         const filme = await prisma.querVer.upsert({
           where: { idFilme: movie },
           update: {
@@ -162,6 +167,7 @@ export default async function handler(req, res) {
       })
 
       if (recomendados) {
+        // eslint-disable-next-line no-unused-vars
         const filme = await prisma.recomendados.update({
           where: { idFilme: movie },
           data: {
@@ -180,6 +186,7 @@ export default async function handler(req, res) {
           }
         })
         if (querVer) {
+          // eslint-disable-next-line no-unused-vars
           const filme = await prisma.querVer.update({
             where: { idFilme: movie },
             data: {
@@ -192,6 +199,7 @@ export default async function handler(req, res) {
           })
         }
 
+        // eslint-disable-next-line no-unused-vars
         const filme = await prisma.recomendados.upsert({
           where: { idFilme: movie },
           update: {
@@ -218,6 +226,7 @@ export default async function handler(req, res) {
       })
 
       if (naoRecomenda) {
+        // eslint-disable-next-line no-unused-vars
         const filme = await prisma.naoRecomendados.update({
           where: { idFilme: movie },
           data: {
@@ -236,6 +245,7 @@ export default async function handler(req, res) {
           }
         })
         if (querVer) {
+          // eslint-disable-next-line no-unused-vars
           const filme = await prisma.querVer.update({
             where: { idFilme: movie },
             data: {
@@ -248,6 +258,7 @@ export default async function handler(req, res) {
           })
         }
 
+        // eslint-disable-next-line no-unused-vars
         const filme = await prisma.naoRecomendados.upsert({
           where: { idFilme: movie },
           update: {
