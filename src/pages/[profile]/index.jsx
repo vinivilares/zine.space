@@ -12,8 +12,6 @@ import InstagramIcon from "../../../icons/InstagramIcon"
 import TwitterIcon from "../../../icons/TwitterIcon"
 import { buscarUser, prisma } from "../../../lib/prisma"
 
-// import { PrismaClient } from "@prisma/client"
-
 export default function Profile({
   user,
   usuarioLogado,
@@ -43,7 +41,7 @@ export default function Profile({
       <Head>
         <title>Zine - {user.nome}</title>
       </Head>
-      <Navbar />
+      <Navbar nickname={usuarioLogado?.nickname} />
       <div className={S.container}>
         <div className={S.userContainer}>
           {user.imagem ? (
@@ -56,7 +54,7 @@ export default function Profile({
             />
           ) : (
             <Image
-              src={"/profilepic.jpg"}
+              src={"/profilepic.png"}
               width={100}
               height={100}
               alt="Profile Picture"
@@ -74,17 +72,19 @@ export default function Profile({
         </div>
 
         <div className={S.socialMedia}>
-          {!estaSeguindo && !followButton && (
+          {!estaSeguindo && !followButton && usuarioLogado && (
             <button className={S.button} onClick={followHandler}>
               Seguir
             </button>
           )}
 
-          {estaSeguindo && !followButton && (
-            <button className={S.button} onClick={followHandler}>
-              Seguindo
-            </button>
-          )}
+          {estaSeguindo &&
+            !followButton &&
+            usuarioLogado(
+              <button className={S.button} onClick={followHandler}>
+                Seguindo
+              </button>
+            )}
 
           {user.instagram && (
             <Link

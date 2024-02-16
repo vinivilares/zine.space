@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   const user = await prisma.users.findUnique({
     where: { nickname: profile },
-    select: { Assistidos: true, imagem: true, nome: true }
+    select: { Assistidos: true, imagem: true, nome: true, nickname: true }
   })
 
   await Promise.all(

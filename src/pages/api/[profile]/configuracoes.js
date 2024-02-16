@@ -1,8 +1,7 @@
 import { hashPassword, verifyPassword } from "../../../../lib/auth"
-import { buscarUser, prisma } from "../../../../lib/prisma"
+import { prisma } from "../../../../lib/prisma"
 
 export default async function handler(req, res) {
-  const { profile } = req.query
   const { usuario } = req.body
 
   if (req.method === "PUT") {
@@ -49,15 +48,35 @@ export default async function handler(req, res) {
       })
       throw new Error("Dados inválidos - As senhas devem ser iguais")
     }
+
     if (usuario.senha && usuario.novaSenha && usuario.repetirNovaSenha) {
       const isValid = await verifyPassword(usuario.senha, existingUser.senha)
-
       if (!isValid) {
         throw new Error("Senha inválida")
       }
+
+      const hashedPassword = await hashPassword(usuario.novaSenha)
+
+      // eslint-disable-next-line no-unused-vars
+      const user = await prisma.users.update({
+        where: {
+          id: usuario.id
+        },
+        data: {
+          nickname: usuario.nickname,
+          nome: usuario.nome,
+          dt_nascimento: usuario.dt_nascimento + "T00:00:00.000Z",
+          instagram: usuario.instagram,
+          tiktok: usuario.tiktok,
+          twitter: usuario.twitter,
+          biografia: usuario.biografia,
+          email: usuario.novoEmail,
+          senha: hashedPassword
+        }
+      })
     }
 
-    const hashedPassword = await hashPassword(usuario.novaSenha)
+    // eslint-disable-next-line no-unused-vars
     const user = await prisma.users.update({
       where: {
         id: usuario.id
@@ -70,8 +89,7 @@ export default async function handler(req, res) {
         tiktok: usuario.tiktok,
         twitter: usuario.twitter,
         biografia: usuario.biografia,
-        email: usuario.novoEmail,
-        senha: hashedPassword
+        email: usuario.novoEmail
       }
     })
 

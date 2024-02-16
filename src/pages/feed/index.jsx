@@ -11,21 +11,24 @@ import ReviewUserInfo from "components/ReviewUserInfo"
 
 import S from "styles/Feed.module.css"
 
-export default function Feed() {
-  // signOut()
+import { prisma } from "../../../lib/prisma"
+
+export default function Feed({ user }) {
   return (
     <>
       <Head>
         <title>Zine - Feed</title>
       </Head>
-      <Navbar />
+      <Navbar nickname={user.nickname} />
       <div className={S.container}>
         <div className={S.feedItem}>
           <ReviewUserInfo
-            userImage={"/profilepic.jpg"}
+            userImage={"/profilepic.png"}
             userName={"Roberta"}
             movie={"Akira"}
-            rate={3}
+            nome={"Marcus"}
+            nickname={"marcus"}
+            nota={3}
           />
 
           <div className={S.feedCard}>
@@ -66,10 +69,12 @@ export default function Feed() {
 
         <div className={S.feedItem}>
           <ReviewUserInfo
-            userImage={"/profilepic.jpg"}
+            userImage={"/profilepic.png"}
             userName={"Roberta"}
             movie={"Akira"}
-            rate={3}
+            nome={"Marcus"}
+            nickname={"marcus"}
+            nota={3}
           />
 
           <div className={S.feedCard}>
@@ -114,10 +119,12 @@ export default function Feed() {
 
         <div>
           <ReviewUserInfo
-            userImage={"/profilepic.jpg"}
+            userImage={"/profilepic.png"}
             userName={"Roberta"}
             movie={"Akira"}
-            rate={3}
+            nome={"Marcus"}
+            nickname={"marcus"}
+            nota={3}
           />
 
           <div className={S.feedCard}>
@@ -173,9 +180,12 @@ export async function getServerSideProps(context) {
         destination: "/"
       }
     }
-  } else {
-    return {
-      props: { userSession }
-    }
   }
+
+  const user = await prisma.users.findFirst({
+    where: { email: userSession.user.email },
+    select: { nickname: true }
+  })
+
+  return { props: { user: JSON.parse(JSON.stringify(user)) } }
 }
