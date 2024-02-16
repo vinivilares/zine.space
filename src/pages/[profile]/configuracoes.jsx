@@ -1,38 +1,44 @@
 import { getSession, signOut } from "next-auth/react"
 import Head from "next/head"
 import Image from "next/image"
+import { useRouter } from "next/router"
 
 import { useState } from "react"
 
+import Dialog from "components/Dialog"
 import Input from "components/Input"
 import { Navbar } from "components/Navbar"
 
 import styles from "styles/Configuracoes.module.css"
 
+import CloseIcon from "../../../icons/CloseIcon"
 import EyeIcon from "../../../icons/EyeIcon"
 import EyelconClosed from "../../../icons/EyelconClosed"
 import { buscarUser } from "../../../lib/prisma"
 
 export default function Configuracoes({ user }) {
+  const router = new useRouter()
   const [usuario, setUsuario] = useState({
     nickname: user.nickname,
     nome: user.nome,
     dt_nascimento: new Date(user.dt_nascimento).toISOString().split("T")[0],
-    instagram: user.instagram,
-    tiktok: user.tiktok,
-    twitter: user.twitter,
-    biografia: user.biografia,
+    instagram: (user.instagram = undefined),
+    tiktok: (user.tiktok = undefined),
+    twitter: (user.twitter = undefined),
+    biografia: (user.biografia = undefined),
     id: user.id,
     email: user.email,
-    novoEmail: user.novoEmail,
-    senha: user.senha,
-    novaSenha: user.novaSenha,
-    repetirNovaSenha: user.repetirNovaSenha
+    novoEmail: (user.novoEmail = undefined),
+    senha: (user.senha = undefined),
+    novaSenha: (user.novaSenha = undefined),
+    repetirNovaSenha: (user.repetirNovaSenha = undefined)
   })
 
   const [visiblePassword, setVisiblePassword] = useState(false)
 
-  const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(false)
+  const [visibleNewPassword, setVisibleNewPassword] = useState(false)
+  const [visibleRepeatNewPassword, setVisibleRepeatNewPassword] =
+    useState(false)
 
   function showPassword(idPassword) {
     idPassword = document.getElementById(`${idPassword}`)
@@ -45,17 +51,29 @@ export default function Configuracoes({ user }) {
       setVisiblePassword(false)
     }
 
-    if (idPassword.type == "password" && idPassword.name == "repeatPassword") {
+    if (idPassword.type == "password" && idPassword.name == "newPassword") {
       idPassword.type = "text"
-      setVisibleRepeatPassword(true)
+      setVisibleNewPassword(true)
+    } else if (idPassword.type == "text" && idPassword.name == "newPassword") {
+      idPassword.type = "password"
+      setVisibleNewPassword(false)
+    }
+
+    if (
+      idPassword.type == "password" &&
+      idPassword.name == "repeatNewPassword"
+    ) {
+      idPassword.type = "text"
+      setVisibleRepeatNewPassword(true)
     } else if (
       idPassword.type == "text" &&
-      idPassword.name == "repeatPassword"
+      idPassword.name == "repeatNewPassword"
     ) {
       idPassword.type = "password"
-      setVisibleRepeatPassword(false)
+      setVisibleRepeatNewPassword(false)
     }
   }
+
   async function updateHandle(event) {
     event.preventDefault()
 
@@ -67,21 +85,55 @@ export default function Configuracoes({ user }) {
         }),
         headers: { "Content-Type": "application/json" }
       })
+
+      if (!response.ok) {
+        throw new Error(`Erro na rede! Status: ${response.status}`)
+      }
+
       const data = await response.json()
+
       if (usuario.novoEmail) {
         await signOut()
       }
+
+      router.push(`/${usuario.nickname}/configuracoes`)
+
+      closeDialog()
+
       return data
     } catch (error) {
       alert(error.message)
     }
   }
+
+  function showDialog() {
+    // eslint-disable-next-line no-undef
+    dialog.showModal()
+  }
+
+  function closeDialog() {
+    // eslint-disable-next-line no-undef
+    dialog.close()
+  }
+
   return (
     <>
       <Head>
         <title>Zine - Configurações</title>
       </Head>
-      <Navbar />
+      <Dialog id={"dialog"}>
+        <div>
+          <h3>Ao alterar o email será necessário fazer o login novamente</h3>
+          <span onClick={closeDialog}>
+            <CloseIcon />
+          </span>
+        </div>
+        <div>
+          <button onClick={updateHandle}>Confirmar</button>
+          <button onClick={closeDialog}>Cancelar</button>
+        </div>
+      </Dialog>
+      <Navbar nickname={user.nickname} />
       <div className={styles.container}>
         <div className={styles.image}>
           <Image
@@ -89,14 +141,14 @@ export default function Configuracoes({ user }) {
             width={100}
             height="100"
             alt="Foto de perfil"
+            priority
           />
 
           <button className={styles.button}>Alterar imagem</button>
         </div>
-        <form className={styles.settings} onSubmit={updateHandle}>
+        <div className={styles.settings}>
           <div className={styles.settings}>
             <h3>Configurar perfil</h3>
-
             <Input
               id={"nickname"}
               placeholder={"Nickname"}
@@ -134,6 +186,7 @@ export default function Configuracoes({ user }) {
                 setUsuario({ ...usuario, instagram: target.value })
               }
             />
+
             <Input
               id={"tiktok"}
               placeholder={"Tiktok"}
@@ -143,6 +196,7 @@ export default function Configuracoes({ user }) {
                 setUsuario({ ...usuario, tiktok: target.value })
               }
             />
+
             <Input
               id={"twitter"}
               placeholder={"Twitter"}
@@ -152,6 +206,7 @@ export default function Configuracoes({ user }) {
                 setUsuario({ ...usuario, twitter: target.value })
               }
             />
+
             <Input
               id={"bio"}
               placeholder={"Biografia"}
@@ -162,6 +217,7 @@ export default function Configuracoes({ user }) {
               }
             />
           </div>
+
           <div className={styles.settings}>
             <h3>Configuração de segurança</h3>
 
@@ -170,6 +226,7 @@ export default function Configuracoes({ user }) {
               placeholder={"Email atual"}
               type={"email"}
               value={usuario.email}
+              disabled
               onChange={({ target }) =>
                 setUsuario({ ...usuario, email: target.value })
               }
@@ -183,12 +240,14 @@ export default function Configuracoes({ user }) {
               }
             />
 
+            {/* Senha atual */}
             <div className={styles.inputPassword}>
               <Input
                 id={"password"}
                 placeholder={"Senha Atual"}
                 type="password"
                 name="password"
+                value={undefined}
                 onChange={({ target }) =>
                   setUsuario({ ...usuario, senha: target.value })
                 }
@@ -203,12 +262,14 @@ export default function Configuracoes({ user }) {
                 {visiblePassword && <EyelconClosed />}
               </button>
             </div>
+
+            {/* Nova senha */}
             <div className={styles.inputPassword}>
               <Input
-                id={"repeatPassword"}
+                id={"newPassword"}
                 placeholder={"Nova senha"}
                 type="password"
-                name="repeatPassword"
+                name="newPassword"
                 onChange={({ target }) =>
                   setUsuario({ ...usuario, novaSenha: target.value })
                 }
@@ -216,19 +277,21 @@ export default function Configuracoes({ user }) {
               <button
                 className={styles.showPasswordIcon}
                 onClick={() => {
-                  showPassword("repeatPassword")
+                  showPassword("newPassword")
                 }}
               >
-                {!visibleRepeatPassword && <EyeIcon />}
-                {visibleRepeatPassword && <EyelconClosed />}
+                {!visibleNewPassword && <EyeIcon />}
+                {visibleNewPassword && <EyelconClosed />}
               </button>
             </div>
+
+            {/* Repetir nova senha */}
             <div className={styles.inputPassword}>
               <Input
-                id={"repeatPassword"}
+                id={"repeatNewPassword"}
                 placeholder={"Repetir nova senha"}
                 type="password"
-                name="repeatPassword"
+                name="repeatNewPassword"
                 onChange={({ target }) =>
                   setUsuario({ ...usuario, repetirNovaSenha: target.value })
                 }
@@ -236,16 +299,18 @@ export default function Configuracoes({ user }) {
               <button
                 className={styles.showPasswordIcon}
                 onClick={() => {
-                  showPassword("repeatPassword")
+                  showPassword("repeatNewPassword")
                 }}
               >
-                {!visibleRepeatPassword && <EyeIcon />}
-                {visibleRepeatPassword && <EyelconClosed />}
+                {!visibleRepeatNewPassword && <EyeIcon />}
+                {visibleRepeatNewPassword && <EyelconClosed />}
               </button>
             </div>
           </div>
-          <input className={styles.button} type="submit" value={"Salvar"} />
-        </form>
+          <button className={styles.button} onClick={showDialog}>
+            Salvar
+          </button>
+        </div>
       </div>
     </>
   )

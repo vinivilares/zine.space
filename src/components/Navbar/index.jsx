@@ -15,7 +15,7 @@ import CloseIcon from "../../../icons/CloseIcon"
 import HamburgerIcon from "../../../icons/HamburgerIcon"
 import SearchIcon from "../../../icons/SearchIcon"
 
-export function Navbar() {
+export function Navbar({ nickname }) {
   const searchText = useRef()
   const [results, setResults] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
@@ -127,7 +127,11 @@ export function Navbar() {
           </li>
         </ul>
 
-        <SettingsMenu id="settingsMenu" onClick={handleSettingsMenu} />
+        <SettingsMenu
+          id="settingsMenu"
+          onClick={handleSettingsMenu}
+          nickname={nickname}
+        />
         <NotificationMenu id="notifications" onClick={handleNotifications} />
 
         {showResults && results.length && searchTerm.length > 2 ? (
