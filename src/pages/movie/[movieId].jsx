@@ -24,9 +24,8 @@ export async function getServerSideProps(context) {
 
   const movie = await res.json()
 
-  const idDoUsuario = await buscarUser(userSession.user.email)
-
   if (userSession) {
+    const idDoUsuario = await buscarUser(userSession.user.email)
     const usuario = await fetch(
       `https://zine-space.vercel.app/api/movie/${movie.imdbID}`,
       {
@@ -172,7 +171,7 @@ export default function Movie({
         <title>Zine - {movie.Title}</title>
       </Head>
 
-      <Navbar nickname={nicknameDoUsuario} />
+      <Navbar nickname={nicknameDoUsuario ? nicknameDoUsuario : ""} />
 
       <Dialog id={"dialog"}>
         <div>
@@ -304,7 +303,7 @@ export default function Movie({
 
         <div className={styles.carousel}>
           {/* Amigos que viram/jogaram */}
-          {usuario.assistiram.length > 0 ? (
+          {usuario?.assistiram.length > 0 ? (
             <div>
               {movie.Type == "game" ? (
                 <h2>Amigos que jogaram</h2>
@@ -336,7 +335,7 @@ export default function Movie({
           ) : null}
 
           {/* Amigos que recomendam */}
-          {usuario.recomendam.length > 0 ? (
+          {usuario?.recomendam.length > 0 ? (
             <div>
               <h2>Amigos que recomendam</h2>
               <ul className={styles.friends}>
