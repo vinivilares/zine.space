@@ -95,6 +95,7 @@ export async function getServerSideProps(context) {
         movie,
         usuario: JSON.parse(JSON.stringify(user)),
         idDoUsuario: idDoUsuario.id,
+        nicknameDoUsuario: idDoUsuario.nickname,
         assistiu: assistiu ? true : false,
         querVer: querVer ? true : false,
         recomenda: recomenda ? true : false,
@@ -121,7 +122,8 @@ export default function Movie({
   querVer,
   idDoUsuario,
   recomenda,
-  naoRecomenda
+  naoRecomenda,
+  nicknameDoUsuario
 }) {
   const router = useRouter()
   async function addHandler(local) {
@@ -170,7 +172,7 @@ export default function Movie({
         <title>Zine - {movie.Title}</title>
       </Head>
 
-      <Navbar />
+      <Navbar nickname={nicknameDoUsuario} />
 
       <Dialog id={"dialog"}>
         <div>

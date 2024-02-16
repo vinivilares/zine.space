@@ -137,7 +137,7 @@ export default function Configuracoes({ user }) {
       <div className={styles.container}>
         <div className={styles.image}>
           <Image
-            src="/profilepic.jpg"
+            src="/profilepic.png"
             width={100}
             height="100"
             alt="Foto de perfil"
