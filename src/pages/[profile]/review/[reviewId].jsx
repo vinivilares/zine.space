@@ -8,33 +8,39 @@ import ReviewUserInfo from "components/ReviewUserInfo"
 
 import S from "styles/Review.module.css"
 
-export default function Review({ dadosReview }) {
+export default function Review({ review }) {
+  console.log(review)
   return (
     <>
       <Navbar />
       <div className={S.container}>
         <div className={S.topo}>
           <ReviewUserInfo
-            nome={dadosReview.user.nome}
-            nickname={dadosReview.user.nickname}
-            userImage={dadosReview.user.imagem}
-            movie={dadosReview.filmeReview.data.Title}
-            nota={dadosReview.review.nota}
+            nome={review.review.idUser.nome}
+            nickname={review.review.idUser.nickname}
+            userImage={
+              review.review.idUser.imagem
+                ? review.review.idUser.imagem
+                : "/profilepic.png"
+            }
+            movie={review.filme.Title}
+            nota={review.review.nota}
           />
         </div>
+
         <div className={S.review}>
           <div className={S.movie}>
             <Image
-              src={dadosReview.filmeReview.data.Poster}
+              src={review.filme.Poster}
               alt="Poster"
               width={100}
               height={148}
               priority
             />
             <div>
-              <h3>{dadosReview.filmeReview.data.Title}</h3>
+              <h3>{review.filme.Title}</h3>
 
-              {dadosReview.filmeReview.data.Ratings.map((nota) => (
+              {review.filme.Ratings.map((nota) => (
                 <p key={nota.id}>
                   {nota.Source == "Internet Movie Database"
                     ? "IMDB"
@@ -42,10 +48,10 @@ export default function Review({ dadosReview }) {
                   : <b>{nota.Value}</b>
                 </p>
               ))}
-              <p>{dadosReview.filmeReview.data.Genre}</p>
+              <p>{review.filme.Genre}</p>
             </div>
           </div>
-          <p>{dadosReview.review.review}</p>
+          <p>{review.review.review}</p>
         </div>
 
         <ReviewOptions />
@@ -57,11 +63,15 @@ export default function Review({ dadosReview }) {
 export async function getServerSideProps(context) {
   const { profile, reviewId } = context.query
   const res = await fetch(
-    `https://zine-space.vercel.app/api/${profile}/review/${reviewId}`
+    `http://localhost:3000/api/${profile}/review/${reviewId}`
   )
-  const dadosReview = await res.json()
+  // const res = await fetch(
+  //   `https://zine-space.vercel.app/api/${profile}/review/${reviewId}`
+  // )
+
+  const data = await res.json()
 
   return {
-    props: { dadosReview }
+    props: { review: data }
   }
 }

@@ -19,7 +19,7 @@ export default function ReviewUserInfo({
         <Link href={`/${nickname}`}>
           <Image
             src={userImage} // TODO - Alterar o link da imagem vir do banco de dados
-            alt="Image de perfil"
+            alt={`Image de ${nome}`}
             width={"50"}
             height={"50"}
           />

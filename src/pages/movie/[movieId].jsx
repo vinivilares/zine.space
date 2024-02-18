@@ -231,10 +231,16 @@ export default function Movie({
         </div>
 
         {/* Botão só aparece quando não adicionei em Assistidos ou Quer Ver */}
-        {!querVer && !assistiu && (
+        {!querVer && !assistiu && nicknameDoUsuario && (
           <button className={styles.button} onClick={adicionar}>
             Adicionar
           </button>
+        )}
+
+        {!nicknameDoUsuario && (
+          <Link href={"/"}>
+            <button className={styles.button}>Faça login para adicionar</button>
+          </Link>
         )}
 
         {/* Só vai aparecer quando adicionar em Assisstidos */}
