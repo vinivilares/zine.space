@@ -19,6 +19,7 @@ export default async function handler(req, res) {
     })
 
     const filme = await fetch(
+      // eslint-disable-next-line no-undef
       `http://www.omdbapi.com/?i=${review.idFilme.idFilme}&apikey=${process.env.NEXT_PUBLIC_OMDBAPIKEY}`
     )
 

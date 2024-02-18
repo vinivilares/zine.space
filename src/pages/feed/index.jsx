@@ -63,7 +63,7 @@ export async function getServerSideProps(context) {
     }
   }
 
-  const res = await fetch("http://localhost:3000/api/feed", {
+  const res = await fetch("https://zine-space.vercel.app/api/feed", {
     method: "POST",
     body: JSON.stringify({
       email: userSession.user.email
