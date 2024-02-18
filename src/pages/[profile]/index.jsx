@@ -78,13 +78,11 @@ export default function Profile({
             </button>
           )}
 
-          {estaSeguindo &&
-            !followButton &&
-            usuarioLogado(
-              <button className={S.button} onClick={followHandler}>
-                Seguindo
-              </button>
-            )}
+          {estaSeguindo && !followButton && usuarioLogado && (
+            <button className={S.button} onClick={followHandler}>
+              Seguindo
+            </button>
+          )}
 
           {user.instagram && (
             <Link

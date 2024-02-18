@@ -29,6 +29,7 @@
     margin: auto;
   }
   .reviewCard {
+    justify-content: start;
     flex-direction: row-reverse;
     max-height: 350px;
   }
