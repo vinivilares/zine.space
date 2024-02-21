@@ -1,9 +1,12 @@
+/* eslint-disable no-undef */
 // import { getSession } from "next-auth/react"
 import { getSession } from "next-auth/react"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
+
+import React, { useState } from "react"
 
 import Dialog from "components/Dialog"
 import { Navbar } from "components/Navbar"
@@ -89,6 +92,16 @@ export async function getServerSideProps(context) {
       }
     })
 
+    let userReview
+    if (assistiu) {
+      userReview = await prisma.reviews.findFirst({
+        where: {
+          idUser: idDoUsuario,
+          assistidosId: assistiu.id
+        }
+      })
+    }
+    await prisma.$disconnect()
     return {
       props: {
         movie,
@@ -98,7 +111,9 @@ export async function getServerSideProps(context) {
         assistiu: assistiu ? true : false,
         querVer: querVer ? true : false,
         recomenda: recomenda ? true : false,
-        naoRecomenda: naoRecomenda ? true : false
+        naoRecomenda: naoRecomenda ? true : false,
+        assistidosId: assistiu ? assistiu.id : null,
+        userReview: userReview ? JSON.parse(JSON.stringify(userReview)) : null
       }
     }
   }
@@ -122,7 +137,9 @@ export default function Movie({
   idDoUsuario,
   recomenda,
   naoRecomenda,
-  nicknameDoUsuario
+  nicknameDoUsuario,
+  assistidosId,
+  userReview
 }) {
   const router = useRouter()
   async function addHandler(local) {
@@ -163,6 +180,30 @@ export default function Movie({
   function closeDialog() {
     // eslint-disable-next-line no-undef
     dialog.close()
+  }
+  const [review, setReview] = useState({
+    userId: idDoUsuario ? idDoUsuario : undefined,
+    review: userReview ? userReview.review : undefined,
+    nota: userReview ? Number(userReview.nota) : 3,
+    spoiler: userReview ? userReview.spoiler : false,
+    assistidosId: assistidosId
+  })
+
+  async function reviewHandler(event) {
+    event.preventDefault()
+    const response = await fetch(`/api/review`, {
+      method: "POST",
+      body: JSON.stringify({
+        review
+      }),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+    const data = await response.json()
+    router.reload()
+
+    return data
   }
 
   return (
@@ -299,11 +340,45 @@ export default function Movie({
         </ul>
 
         {assistiu && (
-          <div className={styles.fazerReview}>
+          <div>
             <h3>Você já assistiu esse filme</h3>
-            <button>Fazer review</button>
+            <textarea
+              value={review.review}
+              type="text"
+              onChange={({ target }) =>
+                setReview({ ...review, review: target.value })
+              }
+              placeholder="Digite aqui seu review"
+            />
+            <input
+              value={review.nota}
+              type="range"
+              min="0"
+              max="5"
+              className="slider"
+              onChange={({ target }) =>
+                setReview({ ...review, nota: target.value })
+              }
+            />
+            <input
+              type="checkbox"
+              id="spoiler"
+              onChange={({ target }) =>
+                setReview({ ...review, spoiler: target.checked })
+              }
+              checked={review.spoiler}
+            />
+            <label htmlFor="spoiler">Marcar como spoiler</label>
+            <button onClick={reviewHandler}>Fazer review</button>
           </div>
         )}
+
+        {/* {assistiu && (
+          <div className={styles.fazerReview}>
+           
+            <button>Fazer review</button>
+          </div>
+        )} */}
 
         <p className={styles.sinopse}>{movie.Plot}</p>
 
