@@ -212,7 +212,6 @@ export default function Profile({
 
 export async function getServerSideProps(context) {
   const { profile } = context.query
-  // const prisma = new PrismaClient()
   const userSessions = await getSession(context)
   const res = await fetch(`https://zine-space.vercel.app/api/${profile}`)
 
@@ -229,6 +228,9 @@ export async function getServerSideProps(context) {
         }
       }
     })
+
+    await prisma.$disconnect()
+
     return {
       props: {
         user,
