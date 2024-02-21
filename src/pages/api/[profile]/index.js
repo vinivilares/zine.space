@@ -72,6 +72,8 @@ export default async function handler(req, res) {
         filme.Poster = data.Poster
       })
     )
+
+    await prisma.$disconnect()
     return res.status(200).json(user)
   }
 
@@ -120,6 +122,8 @@ export default async function handler(req, res) {
         }
       })
     }
+
+    await prisma.$disconnect()
 
     return res.status(201).json({ message: "Ok" })
   }

@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { Navbar } from "components/Navbar"
-// import ReviewOptions from "components/ReviewOptions"
+import ReviewOptions from "components/ReviewOptions"
 import ReviewUserInfo from "components/ReviewUserInfo"
 
 import S from "styles/Feed.module.css"
@@ -20,34 +20,46 @@ export default function Feed({ user, reviews }) {
 
       <Navbar nickname={user.nickname} />
 
-      <div className={S.container}>
-        {reviews.map((review) => (
-          <div className={S.feedItem} key={review.id}>
-            <ReviewUserInfo
-              userImage={"/profilepic.png"}
-              movie={review.idFilme.Title}
-              nome={review.idUser.nome}
-              nickname={review.idUser.nickname}
-              nota={review.nota}
-            />
-            <div className={S.feedCard}>
-              <Link href={`/${review.idUser.nickname}/review/${review.id}`}>
-                <div className={S.reviewCard}>
-                  <p>{review.review}</p>
-                  <Image
-                    src={review.idFilme.Poster}
-                    alt="Poster"
-                    width={100}
-                    height={148}
-                    priority
-                  />
-                </div>
-              </Link>
+      {reviews.length ? (
+        <div className={S.container}>
+          {reviews.map((review) => (
+            <div className={S.feedItem} key={review.id}>
+              <ReviewUserInfo
+                userImage={"/profilepic.png"}
+                movie={review.idFilme.Title}
+                nome={review.idUser.nome}
+                nickname={review.idUser.nickname}
+                nota={review.nota}
+              />
+              <div className={S.feedCard}>
+                <Link href={`/${review.idUser.nickname}/review/${review.id}`}>
+                  <div className={S.reviewCard}>
+                    <p>{review.review}</p>
+                    <Image
+                      src={review.idFilme.Poster}
+                      alt="Poster"
+                      width={100}
+                      height={148}
+                      priority
+                    />
+                  </div>
+                </Link>
+              </div>
+              <ReviewOptions
+                querVer={review.idFilme.querVer}
+                assistiram={review.idFilme.assistiram}
+                recomendam={review.idFilme.recomendam}
+                naoRecomendam={review.idFilme.naoRecomendam}
+                title={review.idFilme.Title}
+              />
             </div>
-            {/* <ReviewOptions /> */}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className={S.container}>
+          <h2>Siga seus amigos e veja suas publicações</h2>
+        </div>
+      )}
     </>
   )
 }
@@ -63,7 +75,7 @@ export async function getServerSideProps(context) {
     }
   }
 
-  const res = await fetch("https://zine-space.vercel.app/api/feed", {
+  const res = await fetch("http://localhost:3000/api/feed", {
     method: "POST",
     body: JSON.stringify({
       email: userSession.user.email
@@ -76,6 +88,8 @@ export async function getServerSideProps(context) {
     where: { email: userSession.user.email },
     select: { nickname: true }
   })
+
+  prisma.$disconnect()
 
   return {
     props: {
