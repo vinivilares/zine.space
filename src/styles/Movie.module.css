@@ -39,6 +39,16 @@
   cursor: pointer;
 }
 
+.review > textarea {
+  margin-block: 1rem;
+  width: 100%;
+  height: 4rem;
+}
+
+.review input[type="range"] {
+  width: 100%;
+}
+
 .querVer {
   background-color: var(--main-color);
 
@@ -160,5 +170,14 @@
 
     width: 80px;
     height: 80px;
+  }
+
+  .review input[type="range"] {
+    width: 15rem;
+  }
+
+  .nota {
+    display: flex;
+    align-items: center;
   }
 }

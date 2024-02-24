@@ -2,7 +2,7 @@
   position: fixed;
   color: var(--main-color);
   background-color: var(--background-color);
-  width: 100vw;
+  /* width: 100vw; */
   height: 100vh;
   padding: 1rem;
   top: 0;
@@ -20,7 +20,9 @@
   scrollbar-width: none; /* Firefox */
 }
 
-.notificationList ul {
+.notificationList > ul {
+  position: relative;
+  top: 0;
   list-style-type: none;
 }
 

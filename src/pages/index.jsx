@@ -106,10 +106,8 @@ export default function Login() {
         <div className={styles.info}>
           <h1>Zine</h1>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque
-            tempora odio corporis ratione mollitia repellat voluptate culpa vel
-            unde qui, incidunt reprehenderit nulla assumenda enim, excepturi
-            temporibus, dolor ut deleniti!
+            Zine é uma plataforma onde, você pode compartilhar com seus amigos
+            suas atividades sobre seus filmes e series favoritos
           </p>
         </div>
 
@@ -145,30 +143,33 @@ export default function Login() {
               </button>
             </div>
 
-            <p className={styles.p}>Forgot password ?</p>
+            <p className={styles.p}>Esqueceu sua senha ?</p>
 
             <div className={styles.loginWith}>
               <button
+                disabled
                 className={styles.button}
                 onClick={() => alert("Estamos trabalhando nisso")}
               >
-                Login with Google
+                Login with Google &#40;em breve&#41;
               </button>
               <button
+                disabled
                 className={styles.button}
                 onClick={() => alert("Estamos trabalhando nisso")}
               >
-                Login with Facebook
+                Login with Facebook &#40;em breve&#41;
               </button>
               <button
+                disabled
                 className={styles.button}
                 onClick={() => alert("Estamos trabalhando nisso")}
               >
-                Login with Apple
+                Login with Apple &#40;em breve&#41;
               </button>
             </div>
             <p className={styles.p}>
-              Don&#x27;t have an account.{" "}
+              Ainda não tem conta ?{" "}
               <span
                 className={styles.span}
                 onClick={() => {
@@ -176,7 +177,7 @@ export default function Login() {
                   setVisiblePassword(false)
                 }}
               >
-                Sign up
+                Cadastre-se
               </span>
             </p>
           </div>
@@ -193,7 +194,7 @@ export default function Login() {
 
             <Input
               id={"name"}
-              placeholder={"Name"}
+              placeholder={"Nome"}
               type="text"
               ref={nomeInputRef}
             />
@@ -215,7 +216,7 @@ export default function Login() {
             <div className={styles.inputPassword}>
               <Input
                 id={"password"}
-                placeholder={"Password"}
+                placeholder={"Senha"}
                 type="password"
                 name="password"
                 ref={passwordInputRef}
@@ -234,7 +235,7 @@ export default function Login() {
             <div className={styles.inputPassword}>
               <Input
                 id={"repeatPassword"}
-                placeholder={"Repeat password"}
+                placeholder={"Repita sua senha"}
                 type="password"
                 name="repeatPassword"
                 ref={repeatPasswordInputRef}
@@ -251,10 +252,10 @@ export default function Login() {
             </div>
 
             <button className={styles.button} onClick={submitHandler}>
-              Create account
+              Criar conta
             </button>
             <p className={styles.p}>
-              Already have an account.{" "}
+              Já tem uma conta ?{" "}
               <span
                 className={styles.span}
                 onClick={() => {
@@ -263,7 +264,7 @@ export default function Login() {
                   setVisibleRepeatPassword(false)
                 }}
               >
-                Login
+                Fazer Login
               </span>
             </p>
           </div>

@@ -7,15 +7,23 @@ import { Navbar } from "components/Navbar"
 
 import styles from "styles/Recomendados.module.css"
 
+import { getNotifications } from "../../../lib/notifications"
 import { prisma } from "../../../lib/prisma"
 
-export default function Recomendados({ user, usuarioLogado }) {
+export default function Recomendados({
+  user,
+  usuarioLogado,
+  notificationsData
+}) {
   return (
     <>
       <Head>
-        <title>Zine - {user.nome} não recomenda</title>
+        <title>{`Zine - ${user.nome} não recomenda`}</title>
       </Head>
-      <Navbar nickname={usuarioLogado?.nickname} />
+      <Navbar
+        nickname={usuarioLogado?.nickname}
+        notificacoes={notificationsData}
+      />
       <div className={styles.container}>
         <div className={styles.topo}>
           {user.imagem ? (
@@ -68,11 +76,15 @@ export async function getServerSideProps(context) {
   if (userSession) {
     const usuarioLogado = await prisma.users.findFirst({
       where: { email: userSession.user.email },
-      select: { nickname: true }
+      select: { nickname: true, id: true }
     })
 
+    const notificationsData = await getNotifications(usuarioLogado)
+
+    await prisma.$disconnect()
+
     return {
-      props: { user, usuarioLogado }
+      props: { user, usuarioLogado, notificationsData }
     }
   }
 

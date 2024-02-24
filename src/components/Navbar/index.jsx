@@ -15,7 +15,7 @@ import CloseIcon from "../../../icons/CloseIcon"
 import HamburgerIcon from "../../../icons/HamburgerIcon"
 import SearchIcon from "../../../icons/SearchIcon"
 
-export function Navbar({ nickname }) {
+export function Navbar({ nickname, notificacoes }) {
   const searchText = useRef()
   const [results, setResults] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
@@ -49,10 +49,11 @@ export function Navbar({ nickname }) {
   }
 
   function handleNotifications() {
-    if (notifications.style.display == "grid") {
+    if (notifications.style.display == "flex") {
       notifications.style.display = "none"
     } else {
-      notifications.style.display = "grid"
+      notifications.style.display = "flex"
+      notifications.style.flexDirection = "column"
       settingsMenu.style.display = "none"
       hamburgerMenu.style.display = "block"
       closeHamburgerMenu.style.display = "none"
@@ -103,36 +104,47 @@ export function Navbar({ nickname }) {
           </Link>
         </div>
 
-        <ul className={S.navigation}>
-          <li>
-            <button onClick={handleNotifications}>
-              <BellIcon />
-            </button>
-          </li>
+        {nickname && (
+          <>
+            <ul className={S.navigation}>
+              <li>
+                <button onClick={handleNotifications}>
+                  <BellIcon />
+                </button>
+              </li>
 
-          <li>
-            <button onClick={handleSettingsMenu} id="hamburgerMenu">
-              <HamburgerIcon />
-            </button>
-          </li>
+              <li>
+                <button onClick={handleSettingsMenu} id="hamburgerMenu">
+                  <HamburgerIcon />
+                </button>
+              </li>
 
-          <li>
-            <button
+              <li>
+                <button
+                  onClick={handleSettingsMenu}
+                  className={S.closeHamburgerMenu}
+                  id="closeHamburgerMenu"
+                >
+                  <CloseIcon />
+                </button>
+              </li>
+            </ul>
+
+            <SettingsMenu
+              id="settingsMenu"
               onClick={handleSettingsMenu}
-              className={S.closeHamburgerMenu}
-              id="closeHamburgerMenu"
-            >
-              <CloseIcon />
-            </button>
-          </li>
-        </ul>
+              nickname={nickname}
+            />
 
-        <SettingsMenu
-          id="settingsMenu"
-          onClick={handleSettingsMenu}
-          nickname={nickname}
-        />
-        <NotificationMenu id="notifications" onClick={handleNotifications} />
+            <NotificationMenu
+              id="notifications"
+              onClick={handleNotifications}
+              notifications={notificacoes}
+            />
+          </>
+        )}
+
+        {!nickname && <Link href={`/`}>Login</Link>}
 
         {showResults && results.length && searchTerm.length > 2 ? (
           <section className={S.search} id="search">
@@ -171,7 +183,7 @@ export function Navbar({ nickname }) {
               </Link>
             ))}
 
-            <h2>Usuários</h2>
+            {/* <h2>Usuários</h2>
             <div className={S.users}>
               <div>
                 <Image
@@ -200,7 +212,8 @@ export function Navbar({ nickname }) {
                 />
                 <p>Nome da pessoa</p>
               </div>
-            </div>
+            </div> */}
+
             <Link href={`/search?s=${searchTerm}`}>
               <p className={S.verTudo}>Ver tudo</p>
             </Link>
