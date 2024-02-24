@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/react"
 import Head from "next/head"
 import Link from "next/link"
 
@@ -5,13 +6,16 @@ import { Navbar } from "components/Navbar"
 
 import S from "styles/Sobre.module.css"
 
-export default function Sobre() {
+import { getNotifications } from "../../lib/notifications"
+import { buscarUser } from "../../lib/prisma"
+
+export default function Sobre({ user, notificationsData }) {
   return (
     <>
       <Head>
         <title>Zine - Sobre</title>
       </Head>
-      <Navbar />
+      <Navbar nickname={user?.nickname} notificacoes={notificationsData} />
       <div className={S.container}>
         <div className={S.sobre}>
           <p>Zine.Space - 2023</p>
@@ -28,4 +32,21 @@ export default function Sobre() {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+
+  if (session) {
+    const user = await buscarUser(session.user.email)
+    const notificationsData = await getNotifications(user)
+
+    return {
+      props: { user: JSON.parse(JSON.stringify(user)), notificationsData }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

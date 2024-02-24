@@ -8,12 +8,11 @@ import { useRouter } from "next/router"
 
 import React, { useState } from "react"
 
-import Dialog from "components/Dialog"
 import { Navbar } from "components/Navbar"
 
 import styles from "styles/Movie.module.css"
 
-import CloseIcon from "../../../icons/CloseIcon"
+import { getNotifications } from "../../../lib/notifications"
 import { buscarUser, prisma } from "../../../lib/prisma"
 
 export async function getServerSideProps(context) {
@@ -43,6 +42,8 @@ export async function getServerSideProps(context) {
     )
 
     const user = await usuario.json()
+
+    const notificationsData = await getNotifications(user)
 
     const assistiu = await prisma.assistidos.findFirst({
       where: {
@@ -113,7 +114,8 @@ export async function getServerSideProps(context) {
         recomenda: recomenda ? true : false,
         naoRecomenda: naoRecomenda ? true : false,
         assistidosId: assistiu ? assistiu.id : null,
-        userReview: userReview ? JSON.parse(JSON.stringify(userReview)) : null
+        userReview: userReview ? JSON.parse(JSON.stringify(userReview)) : null,
+        notificationsData
       }
     }
   }
@@ -139,11 +141,24 @@ export default function Movie({
   naoRecomenda,
   nicknameDoUsuario,
   assistidosId,
-  userReview
+  userReview,
+  notificationsData
 }) {
   const router = useRouter()
+
+  // eslint-disable-next-line no-unused-vars
+  const [viewReview, setViewReview] = useState(false)
+
+  const [review, setReview] = useState({
+    userId: idDoUsuario ? idDoUsuario : undefined,
+    review: userReview ? userReview.review : undefined,
+    nota: userReview ? Number(userReview.nota) : 3,
+    spoiler: userReview ? userReview.spoiler : false,
+    assistidosId: assistidosId,
+    local: undefined
+  })
+
   async function addHandler(local) {
-    // adicionar()
     const response = await fetch(`/api/movie/${movie.imdbID}`, {
       method: "PUT",
       body: JSON.stringify({
@@ -156,6 +171,7 @@ export default function Movie({
       }
     })
     const data = await response.json()
+
     router.reload()
 
     return data
@@ -172,72 +188,84 @@ export default function Movie({
     }
   }
 
-  function showDialog() {
-    // eslint-disable-next-line no-undef
-    dialog.showModal()
-  }
-
-  function closeDialog() {
-    // eslint-disable-next-line no-undef
-    dialog.close()
-  }
-  const [review, setReview] = useState({
-    userId: idDoUsuario ? idDoUsuario : undefined,
-    review: userReview ? userReview.review : undefined,
-    nota: userReview ? Number(userReview.nota) : 3,
-    spoiler: userReview ? userReview.spoiler : false,
-    assistidosId: assistidosId
-  })
-
   async function reviewHandler(event) {
     event.preventDefault()
+
+    let response
+    if (userReview) {
+      response = await fetch(`/api/review`, {
+        method: "PUT",
+        body: JSON.stringify({
+          review,
+          reviewID: userReview.id
+        }),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+    } else {
+      response = await fetch(`/api/review`, {
+        method: "POST",
+        body: JSON.stringify({
+          review
+        }),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+    }
+
+    const data = await response.json()
+
+    await addHandler(review.local)
+
+    return data
+  }
+
+  async function deleteReviewHandler() {
     const response = await fetch(`/api/review`, {
-      method: "POST",
+      method: "DELETE",
       body: JSON.stringify({
-        review
+        reviewID: userReview.id
       }),
       headers: {
         "Content-type": "application/json"
       }
     })
+
     const data = await response.json()
+
     router.reload()
 
     return data
   }
 
+  function recomendaHandler(local) {
+    setViewReview(true)
+    setReview({ ...review, local: local })
+  }
+
+  async function removeRecomendaHandler() {
+    await addHandler("assistidos")
+    await addHandler("recomendados")
+    await deleteReviewHandler()
+  }
+  async function removeNaoRecomendaHandler() {
+    await addHandler("assistidos")
+    await addHandler("naoRecomenda")
+    await deleteReviewHandler()
+  }
+
   return (
     <>
       <Head>
-        <title>Zine - {movie.Title}</title>
+        <title>{`Zine - ${movie.Title}`}</title>
       </Head>
 
-      <Navbar nickname={nicknameDoUsuario ? nicknameDoUsuario : ""} />
-
-      <Dialog id={"dialog"}>
-        <div>
-          <h3>Recomenda esse filme ?</h3>
-          <span onClick={closeDialog}>
-            <CloseIcon />
-          </span>
-        </div>
-        <div>
-          <button
-            onClick={() =>
-              addHandler("assistidos").then(addHandler("recomendados"))
-            }
-          >
-            Sim
-          </button>
-          <button
-            onClick={() =>
-              addHandler("assistidos").then(addHandler("naoRecomenda"))
-            }
-          >
-            Não
-          </button>
-        </div>
-      </Dialog>
+      <Navbar
+        nickname={nicknameDoUsuario ? nicknameDoUsuario : ""}
+        notificacoes={notificationsData}
+      />
 
       <div className={styles.container}>
         <div className={styles.movie}>
@@ -270,66 +298,56 @@ export default function Movie({
             ))}
           </div>
         </div>
-
         {/* Botão só aparece quando não adicionei em Assistidos ou Quer Ver */}
         {!querVer && !assistiu && nicknameDoUsuario && (
           <button className={styles.button} onClick={adicionar}>
             Adicionar
           </button>
         )}
-
         {!nicknameDoUsuario && (
           <Link href={"/"}>
             <button className={styles.button}>Faça login para adicionar</button>
           </Link>
         )}
-
         {/* Só vai aparecer quando adicionar em Assisstidos */}
+        {assistiu && !recomenda && !naoRecomenda && (
+          <button
+            className={styles.button}
+            onClick={() => addHandler("assistidos")}
+          >
+            Remover
+          </button>
+        )}
         {recomenda && (
-          <button
-            className={styles.button}
-            onClick={() =>
-              addHandler("assistidos")
-                .then(addHandler("recomendados"))
-                .then(router.reload())
-            }
-          >
+          <button className={styles.button} onClick={removeRecomendaHandler}>
             Remover
           </button>
         )}
-
         {naoRecomenda && (
-          <button
-            className={styles.button}
-            onClick={() =>
-              addHandler("assistidos")
-                .then(addHandler("naoRecomenda"))
-                .then(router.reload())
-            }
-          >
+          <button className={styles.button} onClick={removeNaoRecomendaHandler}>
             Remover
           </button>
         )}
-
         {querVer && (
-          <button className={styles.querVer} onClick={showDialog}>
+          <button
+            className={styles.querVer}
+            onClick={() => addHandler("assistidos")}
+          >
             Assistir
           </button>
         )}
-
         {/* Só vai aparecer quando adicionar em Quer Ver */}
         {querVer && (
           <button
             className={styles.querVer}
-            onClick={() => addHandler("querVer").then(router.reload())}
+            onClick={() => addHandler("querVer")}
           >
             Remover
           </button>
         )}
-
         {/* Lista só vai aparecer quando não tiver adicionado o filme na lista */}
         <ul className={styles.lista} id="lista">
-          <li onClick={showDialog}>
+          <li onClick={() => addHandler("assistidos")}>
             <button className={styles.buttonList}>Assistido</button>
           </li>
           {!querVer && (
@@ -338,10 +356,26 @@ export default function Movie({
             </li>
           )}
         </ul>
-
         {assistiu && (
-          <div>
-            <h3>Você já assistiu esse filme</h3>
+          <div className={styles.review}>
+            <div>
+              <h3>{`${userReview ? "Edite seu review" : "Faça um review"}`}</h3>
+
+              <button
+                className={styles.querVer}
+                onClick={() => recomendaHandler("recomendados")}
+              >
+                Recomendar
+              </button>
+
+              <button
+                className={styles.querVer}
+                onClick={() => recomendaHandler("naoRecomenda")}
+              >
+                Não recomendar
+              </button>
+            </div>
+
             <textarea
               value={review.review}
               type="text"
@@ -350,35 +384,44 @@ export default function Movie({
               }
               placeholder="Digite aqui seu review"
             />
-            <input
-              value={review.nota}
-              type="range"
-              min="0"
-              max="5"
-              className="slider"
-              onChange={({ target }) =>
-                setReview({ ...review, nota: target.value })
-              }
-            />
-            <input
-              type="checkbox"
-              id="spoiler"
-              onChange={({ target }) =>
-                setReview({ ...review, spoiler: target.checked })
-              }
-              checked={review.spoiler}
-            />
-            <label htmlFor="spoiler">Marcar como spoiler</label>
-            <button onClick={reviewHandler}>Fazer review</button>
+            <div>
+              <div className={styles.nota}>
+                <input
+                  value={review.nota}
+                  type="range"
+                  min="0"
+                  max="5"
+                  className="slider"
+                  onChange={({ target }) =>
+                    setReview({ ...review, nota: target.value })
+                  }
+                />
+                <label htmlFor="spoiler">{`Nota ${review.nota}`}</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="spoiler"
+                  onChange={({ target }) =>
+                    setReview({ ...review, spoiler: target.checked })
+                  }
+                  checked={review.spoiler}
+                />
+                <label htmlFor="spoiler">Marcar como spoiler</label>
+              </div>
+
+              {userReview && (
+                <button className={styles.button} onClick={deleteReviewHandler}>
+                  Deletar review
+                </button>
+              )}
+
+              <button className={styles.button} onClick={reviewHandler}>{`${
+                !userReview ? "Fazer review" : "Editar review"
+              }`}</button>
+            </div>
           </div>
         )}
-
-        {/* {assistiu && (
-          <div className={styles.fazerReview}>
-           
-            <button>Fazer review</button>
-          </div>
-        )} */}
 
         <p className={styles.sinopse}>{movie.Plot}</p>
 

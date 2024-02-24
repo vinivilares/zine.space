@@ -14,9 +14,10 @@ import styles from "styles/Configuracoes.module.css"
 import CloseIcon from "../../../icons/CloseIcon"
 import EyeIcon from "../../../icons/EyeIcon"
 import EyelconClosed from "../../../icons/EyelconClosed"
-import { buscarUser } from "../../../lib/prisma"
+import { getNotifications } from "../../../lib/notifications"
+import { buscarUser, prisma } from "../../../lib/prisma"
 
-export default function Configuracoes({ user }) {
+export default function Configuracoes({ user, notificationsData }) {
   const router = new useRouter()
   const [usuario, setUsuario] = useState({
     nickname: user.nickname,
@@ -133,7 +134,7 @@ export default function Configuracoes({ user }) {
           <button onClick={closeDialog}>Cancelar</button>
         </div>
       </Dialog>
-      <Navbar nickname={user.nickname} />
+      <Navbar nickname={user.nickname} notificacoes={notificationsData} />
       <div className={styles.container}>
         <div className={styles.image}>
           <Image
@@ -144,7 +145,9 @@ export default function Configuracoes({ user }) {
             priority
           />
 
-          <button className={styles.button}>Alterar imagem</button>
+          <button className={styles.button} disabled>
+            Alterar imagem &#40;em breve&#41;
+          </button>
         </div>
         <div className={styles.settings}>
           <div className={styles.settings}>
@@ -323,14 +326,21 @@ export async function getServerSideProps(context) {
     return {
       redirect: { destination: "/" }
     }
-  } else {
-    const user = await buscarUser(userSession.user.email)
-    if (user.nickname !== context.query.profile) {
-      return {
-        redirect: { destination: "/" }
-      }
-    }
+  }
 
-    return { props: { user: JSON.parse(JSON.stringify(user)) } }
+  const user = await buscarUser(userSession.user.email)
+
+  if (user.nickname !== context.query.profile) {
+    return {
+      redirect: { destination: "/" }
+    }
+  }
+
+  const notificationsData = await getNotifications(user)
+
+  await prisma.$disconnect()
+
+  return {
+    props: { user: JSON.parse(JSON.stringify(user)), notificationsData }
   }
 }

@@ -166,6 +166,27 @@ export default async function handler(req, res) {
         }
       })
 
+      const naoRecomenda = await prisma.naoRecomendados.findFirst({
+        where: {
+          idFilme: movie,
+          AND: { idUser: { some: { id: usuarioLogado } } }
+        }
+      })
+
+      // Se estiver, remova-o
+      if (naoRecomenda) {
+        await prisma.naoRecomendados.update({
+          where: { idFilme: movie },
+          data: {
+            idUser: {
+              disconnect: {
+                id: usuarioLogado
+              }
+            }
+          }
+        })
+      }
+
       if (recomendados) {
         // eslint-disable-next-line no-unused-vars
         const filme = await prisma.recomendados.update({
@@ -224,6 +245,27 @@ export default async function handler(req, res) {
           AND: { idUser: { some: { id: usuarioLogado } } }
         }
       })
+
+      const recomenda = await prisma.recomendados.findFirst({
+        where: {
+          idFilme: movie,
+          AND: { idUser: { some: { id: usuarioLogado } } }
+        }
+      })
+
+      // Se estiver, remova-o
+      if (recomenda) {
+        await prisma.recomendados.update({
+          where: { idFilme: movie },
+          data: {
+            idUser: {
+              disconnect: {
+                id: usuarioLogado
+              }
+            }
+          }
+        })
+      }
 
       if (naoRecomenda) {
         // eslint-disable-next-line no-unused-vars

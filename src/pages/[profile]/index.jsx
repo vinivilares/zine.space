@@ -10,57 +10,80 @@ import S from "styles/Profile.module.css"
 
 import InstagramIcon from "../../../icons/InstagramIcon"
 import TwitterIcon from "../../../icons/TwitterIcon"
+import { getNotifications } from "../../../lib/notifications"
 import { buscarUser, prisma } from "../../../lib/prisma"
 
 export default function Profile({
   user,
   usuarioLogado,
   estaSeguindo,
-  followButton
+  followButton,
+  notificationsData,
+  idDoUsuario,
+  idDoSeguidor
 }) {
   const router = useRouter()
   const { profile } = router.query
 
   async function followHandler() {
-    const response = await fetch(`/api/${user.nickname}`, {
+    try {
+      const response = await fetch(`/api/${user.nickname}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          usuarioLogado: usuarioLogado.email
+        }),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+
+      const data = await response.json()
+
+      await notificationHandler()
+
+      router.reload()
+
+      return data
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+  async function notificationHandler() {
+    const response = await fetch(`/api/notifications`, {
       method: "PUT",
       body: JSON.stringify({
-        usuarioLogado: usuarioLogado.email
+        idDoUsuario,
+        idDoSeguidor
       }),
       headers: {
         "Content-type": "application/json"
       }
     })
+
     const data = await response.json()
-    await router.reload()
+
     return data
   }
 
   return (
     <>
       <Head>
-        <title>Zine - {user.nome}</title>
+        <title>{`Zine - ${user.nome}`}</title>
       </Head>
-      <Navbar nickname={usuarioLogado?.nickname} />
+      <Navbar
+        nickname={usuarioLogado?.nickname}
+        notificacoes={notificationsData}
+      />
       <div className={S.container}>
         <div className={S.userContainer}>
-          {user.imagem ? (
-            <Image
-              src={user.imagem}
-              width={100}
-              height={100}
-              alt="Profile Picture"
-              priority
-            />
-          ) : (
-            <Image
-              src={"/profilepic.png"}
-              width={100}
-              height={100}
-              alt="Profile Picture"
-              priority
-            />
-          )}
+          <Image
+            src={user.imagem ? user.imagem : "/profilepic.png"}
+            width={100}
+            height={100}
+            alt="Profile Picture"
+            priority
+          />
 
           <div className={S.userInfo}>
             <h3>{user.nome}</h3>
@@ -215,6 +238,18 @@ export async function getServerSideProps(context) {
   const userSessions = await getSession(context)
   const res = await fetch(`https://zine-space.vercel.app/api/${profile}`)
 
+  try {
+    const res = await fetch(`https://zine-space.vercel.app/api/${profile}`)
+    // eslint-disable-next-line no-unused-vars
+    const user = await res.json()
+  } catch (error) {
+    if (error) {
+      return {
+        notFound: true
+      }
+    }
+  }
+
   const user = await res.json()
 
   if (userSessions) {
@@ -229,6 +264,8 @@ export async function getServerSideProps(context) {
       }
     })
 
+    const notificationsData = await getNotifications(idDoSeguidor)
+
     await prisma.$disconnect()
 
     return {
@@ -239,10 +276,14 @@ export async function getServerSideProps(context) {
           nickname: idDoSeguidor.nickname
         },
         estaSeguindo: JSON.parse(JSON.stringify(estaSeguindo)),
-        followButton: idDoUsuario.id === idDoSeguidor.id ? true : false
+        followButton: idDoUsuario.id === idDoSeguidor.id ? true : false,
+        notificationsData,
+        idDoUsuario: idDoUsuario.id,
+        idDoSeguidor: idDoSeguidor.id
       }
     }
   }
+
   return {
     props: { user }
   }

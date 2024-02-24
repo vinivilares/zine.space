@@ -7,35 +7,29 @@ import { Navbar } from "components/Navbar"
 
 import styles from "styles/QuerVer.module.css"
 
+import { getNotifications } from "../../../lib/notifications"
 import { prisma } from "../../../lib/prisma"
 
-export default function querVer({ user, usuarioLogado }) {
-  console.log(user)
+export default function querVer({ user, usuarioLogado, notificationsData }) {
   return (
     <>
       <Head>
-        <title>Zine - {user.nome} quer ver</title>
+        <title>{`Zine - ${user.nome} quer ver`}</title>
       </Head>
-      <Navbar nickname={usuarioLogado?.nickname} />
+      <Navbar
+        nickname={usuarioLogado?.nickname}
+        notificacoes={notificationsData}
+      />
       <div>
         <div className={styles.topo}>
-          {user.imagem ? (
-            <Image
-              className={styles.foto}
-              src={user.imagem}
-              width={50}
-              height="50"
-              alt="Foto de perfil"
-            />
-          ) : (
-            <Image
-              className={styles.foto}
-              src="/profilepic.png"
-              width={50}
-              height="50"
-              alt="Foto de perfil"
-            />
-          )}
+          <Image
+            className={styles.foto}
+            src={user.imagem ? user.imagem : "/profilepic.png"}
+            width={50}
+            height="50"
+            alt="Foto de perfil"
+          />
+
           <h2 className={styles.titulo}>{user.nome} Quer ver</h2>
         </div>
         <div className={styles.grid}>
@@ -69,11 +63,15 @@ export async function getServerSideProps(context) {
   if (userSession) {
     const usuarioLogado = await prisma.users.findFirst({
       where: { email: userSession.user.email },
-      select: { nickname: true }
+      select: { nickname: true, id: true }
     })
 
+    const notificationsData = await getNotifications(usuarioLogado)
+
+    await prisma.$disconnect()
+
     return {
-      props: { user, usuarioLogado }
+      props: { user, usuarioLogado, notificationsData }
     }
   }
   return {
